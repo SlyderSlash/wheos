@@ -13,6 +13,15 @@
         
     </head>
     <body>
+        {% if app.user and app.user.isVerified == false %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="alert-message">
+                    <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation
+                </div>
+            </div>
+        {% endif %}
+        
         {% block body %}{% endblock %}
     </body>
 </html>
