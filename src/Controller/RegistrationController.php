@@ -95,11 +95,12 @@ class RegistrationController extends AbstractController
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
                 $em->flush($user);
+                $this->addFlash('success', 'Utilisateur activé');
                 return $this->redirectToRoute('app_main');
             }
         }
         // problème dans le token
-
+        $this->addFlash('danger', 'Le token est invalide ou a expiré');
         return $this->redirectToRoute('app_login');
     }
 
@@ -109,11 +110,11 @@ class RegistrationController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            "Vous n\'êtes pas connecté";
+            $this->addFlash('danger', 'Vous n\'êtes pas connecté');
             return $this->redirectToRoute('app_login'); 
         }
         if ($user->getIsVerified()) {
-            "Utilisateur déjà activé";
+            $this->addFlash('danger', 'Utilisateur déjà activé');
             return $this->redirectToRoute('app_main');
         }
 
@@ -143,7 +144,7 @@ class RegistrationController extends AbstractController
                 compact('user', 'token')
                 );
                 
-            "E-mail renvoyé";
+            $this->addFlash('danger', 'E-mail renvoyer.');
             return $this->redirectToRoute('app_main');
     }
 }
