@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Files{% endblock %}
+
+{% block body %}
+    <h1>Edit Files</h1>
+
+    {{ include('files/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_files_index') }}">back to list</a>
+
+    {{ include('files/_delete_form.html.twig') }}
+{% endblock %}

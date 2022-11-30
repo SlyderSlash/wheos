@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
@@ -17,19 +19,24 @@ class Users
     private $email;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private $role = [];
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 50)]
     private $last_name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 50)]
     private $first_name;
 
-    #[ORM\ManyToOne(targetEntity: Files::class, inversedBy: 'user_id')]
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Files::class, orphanRemoval: true)]
     private $files;
+
+    public function __construct()
+    {
+        $this->files = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,12 +57,12 @@ class Users
 
     public function getRole(): ?array
     {
-        return $this->roles;
+        return $this->role;
     }
 
     public function setRole(array $role): self
     {
-        $this->role = $roles;
+        $this->role = $role;
 
         return $this;
     }
@@ -96,14 +103,32 @@ class Users
         return $this;
     }
 
-    public function getFiles(): ?Files
+    /**
+     * @return Collection<int, Files>
+     */
+    public function getFiles(): Collection
     {
         return $this->files;
     }
 
-    public function setFiles(?Files $files): self
+    public function addFile(Files $file): self
     {
-        $this->files = $files;
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(Files $file): self
+    {
+        if ($this->files->removeElement($file)) {
+            // set the owning side to null (unless already changed)
+            if ($file->getUserId() === $this) {
+                $file->setUserId(null);
+            }
+        }
 
         return $this;
     }

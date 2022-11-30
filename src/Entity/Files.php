@@ -2,14 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\FilesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FilesRepository;
+use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\File;
 
 #[ORM\Entity(repositoryClass: FilesRepository::class)]
 class Files
 {
+    #[File(
+        maxSize: '1024k',
+    )]
+    protected $bioFile;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -18,29 +26,37 @@ class Files
     #[ORM\Column(type: 'text')]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'files', targetEntity: Users::class)]
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'files')]
+    #[ORM\JoinColumn(nullable: false)]
     private $user_id;
-
-    #[ORM\Column(type: 'text')]
-    private $path;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $created_at;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $updated_at;
-
-    #[ORM\ManyToMany(targetEntity: FilesCategories::class, mappedBy: 'files_categories')]
-    private $filesCategories;
 
     #[ORM\ManyToMany(targetEntity: Chats::class, inversedBy: 'files')]
     private $chats_id;
 
+    #[ORM\ManyToMany(targetEntity: Calendars::class, inversedBy: 'message_id')]
+    private $calendar_id;
+
+    #[ORM\ManyToMany(targetEntity: Messages::class, inversedBy: 'files')]
+    private $message_id;
+
+    #[ORM\ManyToMany(targetEntity: FilesCategories::class, mappedBy: 'file_id')]
+    private $filesCategories;
+
+    #[ORM\Column(type: 'datetime_immutable', options: ["default"=> new DateTimeImmutable('now')])]
+    private $created_at;
+
+    #[ORM\Column(type: 'datetime_immutable', options: ["default"=> new DateTimeImmutable('now')])]
+    private $updated_at;
+
+    #[ORM\Column(type: 'text')]
+    private $path;
+
     public function __construct()
     {
-        $this->user_id = new ArrayCollection();
-        $this->filesCategories = new ArrayCollection();
         $this->chats_id = new ArrayCollection();
+        $this->calendar_id = new ArrayCollection();
+        $this->message_id = new ArrayCollection();
+        $this->filesCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,44 +76,113 @@ class Files
         return $this;
     }
 
-    /**
-     * @return Collection<int, Users>
-     */
-    public function getUserId(): Collection
+    public function getUserId(): ?Users
     {
         return $this->user_id;
     }
 
-    public function addUserId(Users $userId): self
+    public function setUserId(?Users $user_id): self
     {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id[] = $userId;
-            $userId->setFiles($this);
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Chats>
+     */
+    public function getChatsId(): Collection
+    {
+        return $this->chats_id;
+    }
+
+    public function addChatsId(Chats $chatsId): self
+    {
+        if (!$this->chats_id->contains($chatsId)) {
+            $this->chats_id[] = $chatsId;
         }
 
         return $this;
     }
 
-    public function removeUserId(Users $userId): self
+    public function removeChatsId(Chats $chatsId): self
     {
-        if ($this->user_id->removeElement($userId)) {
-            // set the owning side to null (unless already changed)
-            if ($userId->getFiles() === $this) {
-                $userId->setFiles(null);
-            }
+        $this->chats_id->removeElement($chatsId);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calendars>
+     */
+    public function getCalendarId(): Collection
+    {
+        return $this->calendar_id;
+    }
+
+    public function addCalendarId(Calendars $calendarId): self
+    {
+        if (!$this->calendar_id->contains($calendarId)) {
+            $this->calendar_id[] = $calendarId;
         }
 
         return $this;
     }
 
-    public function getPath(): ?string
+    public function removeCalendarId(Calendars $calendarId): self
     {
-        return $this->path;
+        $this->calendar_id->removeElement($calendarId);
+
+        return $this;
     }
 
-    public function setPath(string $path): self
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessageId(): Collection
     {
-        $this->path = $path;
+        return $this->message_id;
+    }
+
+    public function addMessageId(Messages $messageId): self
+    {
+        if (!$this->message_id->contains($messageId)) {
+            $this->message_id[] = $messageId;
+        }
+
+        return $this;
+    }
+
+    public function removeMessageId(Messages $messageId): self
+    {
+        $this->message_id->removeElement($messageId);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FilesCategories>
+     */
+    public function getFilesCategories(): Collection
+    {
+        return $this->filesCategories;
+    }
+
+    public function addFilesCategory(FilesCategories $filesCategory): self
+    {
+        if (!$this->filesCategories->contains($filesCategory)) {
+            $this->filesCategories[] = $filesCategory;
+            $filesCategory->addFileId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilesCategory(FilesCategories $filesCategory): self
+    {
+        if ($this->filesCategories->removeElement($filesCategory)) {
+            $filesCategory->removeFileId($this);
+        }
 
         return $this;
     }
@@ -126,53 +211,14 @@ class Files
         return $this;
     }
 
-    /**
-     * @return Collection<int, FilesCategories>
-     */
-    public function getFilesCategories(): Collection
+    public function getPath(): ?string
     {
-        return $this->filesCategories;
+        return $this->path;
     }
 
-    public function addFilesCategory(FilesCategories $filesCategory): self
+    public function setPath(string $path): self
     {
-        if (!$this->filesCategories->contains($filesCategory)) {
-            $this->filesCategories[] = $filesCategory;
-            $filesCategory->addFilesCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFilesCategory(FilesCategories $filesCategory): self
-    {
-        if ($this->filesCategories->removeElement($filesCategory)) {
-            $filesCategory->removeFilesCategory($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Chats>
-     */
-    public function getChatsId(): Collection
-    {
-        return $this->chats_id;
-    }
-
-    public function addChatsId(Chats $chatsId): self
-    {
-        if (!$this->chats_id->contains($chatsId)) {
-            $this->chats_id[] = $chatsId;
-        }
-
-        return $this;
-    }
-
-    public function removeChatsId(Chats $chatsId): self
-    {
-        $this->chats_id->removeElement($chatsId);
+        $this->path = $path;
 
         return $this;
     }

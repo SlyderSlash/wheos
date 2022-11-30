@@ -18,7 +18,7 @@ class UsersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, Users::class);
     }
 
     public function add(Users $entity, bool $flush = false): void
@@ -54,7 +54,7 @@ class UsersRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?User
+//    public function findOneBySomeField($value): ?Users
 //    {
 //        return $this->createQueryBuilder('u')
 //            ->andWhere('u.exampleField = :val')

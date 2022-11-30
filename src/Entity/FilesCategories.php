@@ -25,11 +25,11 @@ class FilesCategories
     private $updated_at;
 
     #[ORM\ManyToMany(targetEntity: Files::class, inversedBy: 'filesCategories')]
-    private $files_categories;
+    private $file_id;
 
     public function __construct()
     {
-        $this->files_categories = new ArrayCollection();
+        $this->file_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,23 +76,23 @@ class FilesCategories
     /**
      * @return Collection<int, Files>
      */
-    public function getFilesCategories(): Collection
+    public function getFileId(): Collection
     {
-        return $this->files_categories;
+        return $this->file_id;
     }
 
-    public function addFilesCategory(Files $filesCategory): self
+    public function addFileId(Files $fileId): self
     {
-        if (!$this->files_categories->contains($filesCategory)) {
-            $this->files_categories[] = $filesCategory;
+        if (!$this->file_id->contains($fileId)) {
+            $this->file_id[] = $fileId;
         }
 
         return $this;
     }
 
-    public function removeFilesCategory(Files $filesCategory): self
+    public function removeFileId(Files $fileId): self
     {
-        $this->files_categories->removeElement($filesCategory);
+        $this->file_id->removeElement($fileId);
 
         return $this;
     }
