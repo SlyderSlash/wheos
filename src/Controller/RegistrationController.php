@@ -52,7 +52,7 @@ class RegistrationController extends AbstractController
             ];
 
             // on génère le token
-            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwt_secret'));
+            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
 
 
@@ -80,7 +80,7 @@ class RegistrationController extends AbstractController
     }
 
 
-    #[Route('/verif/{token}', name: 'veriffy_user')]
+    #[Route('/verif/{token}', name: 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $em): Response
     {
         // on vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
@@ -130,7 +130,7 @@ class RegistrationController extends AbstractController
             ];
 
             // on génère le token
-            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwt_secret'));
+            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
 
 
