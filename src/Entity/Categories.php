@@ -27,9 +27,13 @@ class Categories
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: self::class)]
     private $parent;
 
+    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Forums::class)]
+    private $forums;
+
     public function __construct()
     {
         $this->parent = new ArrayCollection();
+        $this->forums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +101,36 @@ class Categories
             // set the owning side to null (unless already changed)
             if ($parent->getCategories() === $this) {
                 $parent->setCategories(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Forums>
+     */
+    public function getForums(): Collection
+    {
+        return $this->forums;
+    }
+
+    public function addForum(Forums $forum): self
+    {
+        if (!$this->forums->contains($forum)) {
+            $this->forums[] = $forum;
+            $forum->setCategories($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForum(Forums $forum): self
+    {
+        if ($this->forums->removeElement($forum)) {
+            // set the owning side to null (unless already changed)
+            if ($forum->getCategories() === $this) {
+                $forum->setCategories(null);
             }
         }
 
