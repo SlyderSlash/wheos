@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ForumsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ForumsRepository::class)]
@@ -31,6 +33,14 @@ class Forums
 
     #[ORM\Column(type: 'integer')]
     private $user_id;
+
+    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: Messages::class, orphanRemoval: true)]
+    private $messages;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +115,36 @@ class Forums
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Messages $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getForum() === $this) {
+                $message->setForum(null);
+            }
+        }
 
         return $this;
     }
