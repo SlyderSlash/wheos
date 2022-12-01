@@ -39,9 +39,12 @@ class FilesController extends AbstractController
 
                 // On COPIE le FICHIER dans le DOSSIER UPLOADS
                 $file->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('files_directory'),
                     $fileName
                 );
+
+                // TEST : $file->getPath()->$file;
+                $file->path->getParameter('files_directory').$fileName; // <- A VOIR PLUS TARD [!IMPORTANT!]
 
                 // On STOCK le FICHIER dans la BASE DE DONNÉES (son nom)
             }

@@ -8,7 +8,7 @@ use App\Repository\FilesRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FilesRepository::class)]
 class Files
@@ -59,6 +59,7 @@ class Files
         $this->filesCategories = new ArrayCollection();
         $this->created_at = new DateTimeImmutable();
         $this->updated_at = new DateTimeImmutable();
+        // $this->path = 'files_directory';
     }
 
     public function getId(): ?int
