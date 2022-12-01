@@ -30,6 +30,9 @@ class Categories
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Forums::class)]
     private $forums;
 
+    #[ORM\Column(type: 'integer')]
+    private $categoriesOrder;
+
     public function __construct()
     {
         $this->parent = new ArrayCollection();
@@ -133,6 +136,18 @@ class Categories
                 $forum->setCategories(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategoriesOrder(): ?int
+    {
+        return $this->categoriesOrder;
+    }
+
+    public function setCategoriesOrder(int $categoriesOrder): self
+    {
+        $this->categoriesOrder = $categoriesOrder;
 
         return $this;
     }

@@ -1,73 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}WHEOS | FORUM{% endblock %}
+{% block title %}WHEOS | FORUM
+{% endblock %}
 
 {% block body %}
 
-<section class="container">
+	<section class="container">
 
-    <div class="row border-bottom my-3  d-flex align-items-center">
-        <div class="col-1">
-            <i class="fa fa-house" style="font-size:48px;color:blue"></i>
-        </div>
-        <div class="col fs-2 text-start text-uppercase">
-            Forum
-        </div>
-    </div>
+		<div class="row border-bottom my-3  d-flex align-items-center">
+			<div class="col-1">
+				<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+			</div>
+			<div class="col fs-2 text-start text-uppercase">
+				Forum
+			</div>
+		</div>
 
-    <div class="row d-flex align-items-center my-3 ">
-        <div class="col-2">
-            <img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
-        </div>
-        <div class="col-10 fs-2 text-start">
-            Forum d'entraide des stagiaires de l'AFPA.
-            Bienvenue sur le forum des stagiaires des centres afpa du france. 
-        </div>
-    </div>
-    <div class="row border border-primary border-2 rounded-top d-flex align-items-center">
-        <div class="row">
-            <div class="col-6 border-primary border-2 border-bottom fs-3 text-start text-uppercase">
-                formations
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                Messages
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                Date
-            </div>  
-        </div>
-        <div class="row ">
-            <div class="col-6 border-primary border-2 border-bottom">
-                <i class="fa fa-comments-alt"></i>
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                informations-orientation-inscription
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                120
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                30/05/2022
-            </div>  
-        </div>
-        <div class="row">
-            <div class="col-6 border-primary border-2 border-bottom">
-               <i class="fa-solid fa-message-arrow-up"></i>
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                hebergement
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                1036
-            </div>
-            <div class="col-2 border-primary border-2 border-bottom">
-                30/05/2022
-            </div>  
-        </div>
-    </div>
-</section>
+		<div class="row d-flex align-items-center my-3 ">
+			<div class="col-2">
+				<img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
+			</div>
+			<div class="col-10 fs-2 text-start">
+				Forum d'entraide des stagiaires de l'AFPA.<br>
+				Bienvenue sur le forum des stagiaires des centres afpa du france.
+			</div>
+		</div>
+		<div class="row border border-primary border-2 rounded-top">
+			{% for category in categories %}
+                <div class="row">
+					{% if category.categories == null %}
+                    
+                        <div class="col-6 border text-light text-start bg-dark bg-gradient"><i class="fa-solid fa-folder"></i> {{category.name}}</div>
+                        <div class="col-2 border text-end bg-secondary"></div>
+                        <div class="col-2 border text-end bg-secondary">Messages</div>
+                        <div class="col-2 border text-center bg-secondary">Date</div>
+					{% else %}
+						<div class="col-6 border-primary border-2 border-bottom">
+							<i class="fa-solid fa-folder"></i>
+							{{category.name}}
+						</div>
+						<div class="col-2 border-primary border-2 border-bottom"></div>
+						<div class="col-2 border-primary border-2 border-bottom">
+							120
+						</div>
+						<div class="col-2 border-primary border-2 border-bottom">
+							{{category.createdAt|date('d/m/Y')}}
+						</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</section>
 
 
 {% endblock %}
