@@ -57,6 +57,8 @@ class Files
         $this->calendar_id = new ArrayCollection();
         $this->message_id = new ArrayCollection();
         $this->filesCategories = new ArrayCollection();
+        $this->created_at = new DateTimeImmutable();
+        $this->updated_at = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -194,7 +196,7 @@ class Files
 
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
-        $this->created_at = $created_at;
+        $this->created_at = new DateTimeImmutable();
 
         return $this;
     }

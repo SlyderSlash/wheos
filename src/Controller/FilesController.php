@@ -29,6 +29,22 @@ class FilesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // On RECUPERE les FICHIERS TRANSMIS
+            $files = $form->get('files')->getData();
+
+            // On BOUCLE sur les FICHIERS
+            foreach($files as $file){
+                // On GENERE un NOUVEAU NOM au FICHIER
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+                // On COPIE le FICHIER dans le DOSSIER UPLOADS
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                // On STOCK le FICHIER dans la BASE DE DONNÉES (son nom)
+            }
             $filesRepository->add($file, true);
 
             return $this->redirectToRoute('app_files_index', [], Response::HTTP_SEE_OTHER);
