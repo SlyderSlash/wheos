@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+{% if app.user %}
+    <div class="mb-3">
+        Bonjour {{ app.user.FirstName }} {{ app.user.LastName }}
+    </div> 
+{% endif %}
+{% endblock %}
