@@ -29,9 +29,10 @@ class FilesController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($file); // TEST [!IMPORTANT!]
             // On RECUPERE les FICHIERS TRANSMIS
             $files = $form->get('files')->getData();
+            $file->setPath('%kernel.project_dir%/public/uploads'); // <- A VOIR PLUS TARD [!IMPORTANT!] / NOTE DU 2 NOVEMBRE : Attribution du Path bon ??
+            // dd($file); // TEST [!IMPORTANT!]
             
             // On BOUCLE sur les FICHIERS
             foreach($files as $file){
@@ -45,7 +46,6 @@ class FilesController extends AbstractController
                 );
                 
                 // TEST : $file->getPath()->$file;
-                $file->setPath('files_directory').$fileName; // <- A VOIR PLUS TARD [!IMPORTANT!]
 
                 // On STOCK le FICHIER dans la BASE DE DONNÉES (son nom)
                 $fileUploaded = new Files();
