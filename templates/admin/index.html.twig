@@ -4,9 +4,7 @@
 
 {% block body %}
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('utilisateurs')}}" class="btn btn-secondary">Me connecter</a>
-    {% else %}
-        Accés refusé
+    <a href="{{ path('utilisateurs')}}" class="btn btn-secondary">Liste des utilisateurs</a>
 {% endif %}
 
 {% endblock %}

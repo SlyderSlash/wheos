@@ -5,7 +5,7 @@
 {% block body %}
 {% if app.user %}
     <div class="mb-3">
-        Bonjour {{ app.user.FirstName }} {{ app.user.LastName }}
+        Bonjour {{ app.user.LastName }} {{ app.user.FirstName }}
     </div> 
 {% endif %}
 {% endblock %}
