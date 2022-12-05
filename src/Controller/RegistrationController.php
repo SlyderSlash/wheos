@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
 
             // on envoie un mail
             $mail->send(
-                'no-reply@wheos.fr',
+                'contact@devweb-chartres.me',
                 $user->getEmail(),
                 'Activation de votre compte',
                 'register',
@@ -137,7 +137,7 @@ class RegistrationController extends AbstractController
 
             // on envoie un mail
             $mail->send(
-                'no-reply@monsite.fr',
+                'contact@devweb-chartres.me',
                 $user->getEmail(),
                 'Activation de votre compte',
                 'register',

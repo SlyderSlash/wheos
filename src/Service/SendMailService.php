@@ -18,7 +18,7 @@ class SendMailService
     {
         // crée le mail
         $email = (new TemplatedEmail())
-        ->from($from)
+        ->from('contact@devweb-chartres.me')
         ->to($to)
         ->subject($subject)
         ->htmlTemplate("emails/$template.html.twig")
