@@ -95,7 +95,7 @@ class RegistrationController extends AbstractController
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
                 $em->flush($user);
-                $this->addFlash('success', 'Utilisateur activé');
+                $this->addFlash('success', 'Adresse e-mail validé');
                 return $this->redirectToRoute('app_main');
             }
         }
@@ -139,7 +139,7 @@ class RegistrationController extends AbstractController
             $mail->send(
                 'no-reply@monsite.fr',
                 $user->getEmail(),
-                'Activation de vôtre compte',
+                'Activation de votre compte',
                 'register',
                 compact('user', 'token')
                 );
