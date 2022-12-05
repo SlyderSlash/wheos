@@ -27,8 +27,8 @@ class FilesController extends AbstractController
     public function new(Request $request, FilesRepository $filesRepository, UsersRepository $usersRepository): Response
     {
         $file = new Files();
-        $user = new Users();
-        $user->getId();
+        $user = $usersRepository->find('user_id');
+        dd($user);
         $form = $this->createForm(FilesType::class, $file);
         $form->handleRequest($request);
         
@@ -36,8 +36,7 @@ class FilesController extends AbstractController
             // On RECUPERE les FICHIERS TRANSMIS
             $files = $form->get('files')->getData();
             $file->setPath('/uploads/'.$form->get('name')->getData());
-            $file->setUserId($user);
-            // $file->setUserId($usersRepository);
+            // $file->setUserId($usersRepository); <- A DECOMMENTER
             dd($file);
             
             // On BOUCLE sur les FICHIERS

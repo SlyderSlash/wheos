@@ -46,11 +46,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->files = new ArrayCollection();
     }
 
-    // TEST
-    // #[ORM\OneToMany(mappedBy: 'annonces', targetEntity: Files::class, orphanRemoval: true, cascade:"persist")]
-    // private Collection $files;
-
-
     public function getId(): ?int
     {
         return $this->id;
