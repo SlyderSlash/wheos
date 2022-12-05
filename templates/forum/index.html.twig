@@ -4,9 +4,13 @@
 {% endblock %}
 
 {% block body %}
-
 	<section class="container">
-
+<pre>
+	{{ dump(subcategories) }}
+</pre>
+<pre>
+	{{ dump(categories) }}
+</pre>
 		<div class="row border-bottom my-3  d-flex align-items-center">
 			<div class="col-1">
 				<i class="fa fa-house" style="font-size:48px;color:blue"></i>
@@ -27,36 +31,41 @@
 		</div>
 		<div class="row border border-primary border-2 rounded-top">
 			{% for category in categories %}
-                <div class="row">
-					{% if category.categories == null %}
+				<div class="row">
 					<div class="row">
-                        <div class="col-6  text-light text-start bg-dark bg-gradient"  data-bs-toggle="collapse" data-bs-target="#categories"><i class="fa-solid fa-folder"></i> {{category.name}}</div>
-                        <div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-                        <div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
-                        <div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
-					</div>
-					{% else %}
-					<div class="collapse multi-collapse" id="categories">
-						<div class="col-6 border text-start ps-5">
+						<div class="col-6  text-light text-start bg-dark bg-gradient">
 							<i class="fa-solid fa-folder"></i>
 							{{category.name}}
 						</div>
-						<div class="col-2 border">
-                            <i class="fa-solid fa-star" style="color:gold;"></i>
-                            <i class="fa-solid fa-star" style="color:gold;"></i>
-                            <i class="fa-solid fa-star" style="color:gold;"></i>
-                            <i class="fa-solid fa-star" style="color:gold;"></i>
-                            <i class="fa-regular fa-star" style="color:gold;"></i>
-                            <i class="fa-solid fa-paperclip"></i>
-                        </div>
-						<div class="col-2 text-end border">
-							120
-						</div>
-						<div class="col-2 text-end border">
-							{{category.createdAt|date('d/m/Y')}}
-						</div>
-						</div>
-					{% endif %}
+						<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+						<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
+						<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
+					</div>
+					<div class="row">
+						{% for subcategory in subcategories %}
+							
+							{% if (subcategory.parent == category.id) %}
+								<div class="col-6 border text-start ps-5">
+									<i class="fa-solid fa-folder"></i>
+									{{subcategory.name}}
+								</div>
+								<div class="col-2 border">
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-regular fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-paperclip"></i>
+								</div>
+								<div class="col-2 text-end border">
+									120
+								</div>
+								<div class="col-2 text-end border">
+									{{subcategory.createdAt|date('d/m/Y')}}
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
 			{% endfor %}
 		</div>

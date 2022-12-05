@@ -19,24 +19,17 @@ class Categories
     private $name;
 
     #[ORM\Column(type: 'datetime')]
-    private $created_at;
+    private $create_at;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
-    private $categories;
-
-    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: self::class)]
     private $parent;
 
-    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Forums::class)]
+    #[ORM\ManyToOne(targetEntity: Forums::class, inversedBy: 'categorie')]
     private $forums;
-
-    #[ORM\Column(type: 'integer')]
-    private $categoriesOrder;
 
     public function __construct()
     {
         $this->parent = new ArrayCollection();
-        $this->forums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,43 +49,35 @@ class Categories
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreateAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->create_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreateAt(\DateTimeInterface $create_at): self
     {
-        $this->created_at = $created_at;
+        $this->create_at = $create_at;
 
         return $this;
     }
 
-    public function getCategories(): ?self
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(?self $categories): self
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getParent(): Collection
+    public function getParent(): ?self
     {
         return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
     }
 
     public function addParent(self $parent): self
     {
         if (!$this->parent->contains($parent)) {
             $this->parent[] = $parent;
-            $parent->setCategories($this);
+            $parent->setParent($this);
         }
 
         return $this;
@@ -102,52 +87,22 @@ class Categories
     {
         if ($this->parent->removeElement($parent)) {
             // set the owning side to null (unless already changed)
-            if ($parent->getCategories() === $this) {
-                $parent->setCategories(null);
+            if ($parent->getParent() === $this) {
+                $parent->setParent(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Forums>
-     */
-    public function getForums(): Collection
+    public function getForums(): ?Forums
     {
         return $this->forums;
     }
 
-    public function addForum(Forums $forum): self
+    public function setForums(?Forums $forums): self
     {
-        if (!$this->forums->contains($forum)) {
-            $this->forums[] = $forum;
-            $forum->setCategories($this);
-        }
-
-        return $this;
-    }
-
-    public function removeForum(Forums $forum): self
-    {
-        if ($this->forums->removeElement($forum)) {
-            // set the owning side to null (unless already changed)
-            if ($forum->getCategories() === $this) {
-                $forum->setCategories(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getCategoriesOrder(): ?int
-    {
-        return $this->categoriesOrder;
-    }
-
-    public function setCategoriesOrder(int $categoriesOrder): self
-    {
-        $this->categoriesOrder = $categoriesOrder;
+        $this->forums = $forums;
 
         return $this;
     }

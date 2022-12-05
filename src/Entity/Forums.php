@@ -27,19 +27,19 @@ class Forums
     #[ORM\Column(type: 'boolean')]
     private $isClosed = false;
 
-    #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'forums')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $categories;
-
     #[ORM\Column(type: 'integer')]
     private $user_id;
 
     #[ORM\OneToMany(mappedBy: 'forum', targetEntity: Messages::class, orphanRemoval: true)]
     private $messages;
 
+    #[ORM\OneToMany(mappedBy: 'forums', targetEntity: Categories::class)]
+    private $categorie;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->categorie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,18 +95,6 @@ class Forums
         return $this;
     }
 
-    public function getCategories(): ?Categories
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(?Categories $categories): self
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
     public function getUserId(): ?int
     {
         return $this->user_id;
@@ -143,6 +131,36 @@ class Forums
             // set the owning side to null (unless already changed)
             if ($message->getForum() === $this) {
                 $message->setForum(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categories>
+     */
+    public function getCategorie(): Collection
+    {
+        return $this->categorie;
+    }
+
+    public function addCategorie(Categories $categorie): self
+    {
+        if (!$this->categorie->contains($categorie)) {
+            $this->categorie[] = $categorie;
+            $categorie->setForums($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorie(Categories $categorie): self
+    {
+        if ($this->categorie->removeElement($categorie)) {
+            // set the owning side to null (unless already changed)
+            if ($categorie->getForums() === $this) {
+                $categorie->setForums(null);
             }
         }
 
