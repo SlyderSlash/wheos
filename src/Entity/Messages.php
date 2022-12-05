@@ -17,10 +17,11 @@ class Messages
     private $content;
 
     #[ORM\Column(type: 'datetime')]
-    private $created_at;
+    private $create_at;
 
-    #[ORM\Column(type: 'integer')]
-    private $user_id;
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'messages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
 
     #[ORM\ManyToOne(targetEntity: Forums::class, inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
@@ -46,26 +47,26 @@ class Messages
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreateAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->create_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreateAt(\DateTimeInterface $create_at): self
     {
-        $this->created_at = $created_at;
+        $this->create_at = $create_at;
 
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getUser(): ?Users
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUser(?Users $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
