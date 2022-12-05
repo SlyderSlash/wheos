@@ -13,10 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: FilesRepository::class)]
 class Files
 {
-    #[File(
-        maxSize: '1024k',
-    )]
-    protected $bioFile;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,10 +21,6 @@ class Files
 
     #[ORM\Column(type: 'text')]
     private $name;
-
-    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'files')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $user_id;
 
     #[ORM\ManyToMany(targetEntity: Chats::class, inversedBy: 'files')]
     private $chats_id;
@@ -51,6 +43,10 @@ class Files
     #[ORM\Column(type: 'text')]
     private $path;
 
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'files')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user_id;
+
     public function __construct()
     {
         $this->chats_id = new ArrayCollection();
@@ -60,7 +56,6 @@ class Files
         $this->created_at = new DateTimeImmutable();
         $this->updated_at = new DateTimeImmutable();
         // $this->path = 'files_directory';
-        $this->user_id = 1;
     }
 
     public function getId(): ?int

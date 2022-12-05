@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Files;
+use App\Entity\Users;
 use App\Form\FilesType;
 use App\Repository\FilesRepository;
+use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,23 +24,26 @@ class FilesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_files_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FilesRepository $filesRepository): Response
+    public function new(Request $request, FilesRepository $filesRepository, UsersRepository $usersRepository): Response
     {
         $file = new Files();
+        $user = new Users();
+        $user->getId();
         $form = $this->createForm(FilesType::class, $file);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             // On RECUPERE les FICHIERS TRANSMIS
             $files = $form->get('files')->getData();
-            $file->setPath('/uploads/'.$form->get('name')->getData()); // <- A VOIR PLUS TARD [!IMPORTANT!] / NOTE DU 2 NOVEMBRE : Attribution du Path bon ??
-            // dd($file); // TEST [!IMPORTANT!]
+            $file->setPath('/uploads/'.$form->get('name')->getData());
+            $file->setUserId($user);
+            // $file->setUserId($usersRepository);
+            dd($file);
             
             // On BOUCLE sur les FICHIERS
             foreach($files as $file){
                 // On GENERE un NOUVEAU NOM au FICHIER
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-                dd($fileName);
                 
                 // On COPIE le FICHIER dans le DOSSIER UPLOADS
                 $file->move(
@@ -79,6 +84,29 @@ class FilesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // On RECUPERE les FICHIERS TRANSMIS
+            $files = $form->get('files')->getData();
+            $file->setPath('/uploads/'.$form->get('name')->getData());
+            dd($file);
+                        
+            // On BOUCLE sur les FICHIERS
+            foreach($files as $file){
+                // On GENERE un NOUVEAU NOM au FICHIER
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                            
+                // On COPIE le FICHIER dans le DOSSIER UPLOADS
+                $file->move(
+                    $this->getParameter('files_directory'),
+                    $fileName
+                );
+                            
+                // TEST : $file->getPath()->$file;
+            
+                // On STOCK le FICHIER dans la BASE DE DONNÉES (son nom)
+                $fileUploaded = new Files();
+                $fileUploaded->setName($fileName);
+                $file->addFiles($fileUploaded);
+            }
             $filesRepository->add($file, true);
 
             return $this->redirectToRoute('app_files_index', [], Response::HTTP_SEE_OTHER);
