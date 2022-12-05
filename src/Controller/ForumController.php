@@ -14,7 +14,8 @@ class ForumController extends AbstractController
     {
         return $this->render('forum/index.html.twig', [
             'controller_name' => 'ForumController',
-            'categories' => $categoriesRepository -> findBy([],['categoriesOrder' => 'Asc'])
+            'categories' => $categoriesRepository -> findBy([],['categoriesOrder' => 'Asc']),
+            'subCategories' => $categoriesRepository -> findByCategorie($parent)
         ]);
     }
 }

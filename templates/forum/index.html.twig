@@ -29,22 +29,32 @@
 			{% for category in categories %}
                 <div class="row">
 					{% if category.categories == null %}
-                    
-                        <div class="col-6 border text-light text-start bg-dark bg-gradient"><i class="fa-solid fa-folder"></i> {{category.name}}</div>
-                        <div class="col-2 border text-end bg-secondary"></div>
-                        <div class="col-2 border text-end bg-secondary">Messages</div>
-                        <div class="col-2 border text-center bg-secondary">Date</div>
+					<div class="row">
+                        <div class="col-6  text-light text-start bg-dark bg-gradient"  data-bs-toggle="collapse" data-bs-target="#categories"><i class="fa-solid fa-folder"></i> {{category.name}}</div>
+                        <div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+                        <div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
+                        <div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
+					</div>
 					{% else %}
-						<div class="col-6 border-primary border-2 border-bottom">
+					<div class="collapse multi-collapse" id="categories">
+						<div class="col-6 border text-start ps-5">
 							<i class="fa-solid fa-folder"></i>
 							{{category.name}}
 						</div>
-						<div class="col-2 border-primary border-2 border-bottom"></div>
-						<div class="col-2 border-primary border-2 border-bottom">
+						<div class="col-2 border">
+                            <i class="fa-solid fa-star" style="color:gold;"></i>
+                            <i class="fa-solid fa-star" style="color:gold;"></i>
+                            <i class="fa-solid fa-star" style="color:gold;"></i>
+                            <i class="fa-solid fa-star" style="color:gold;"></i>
+                            <i class="fa-regular fa-star" style="color:gold;"></i>
+                            <i class="fa-solid fa-paperclip"></i>
+                        </div>
+						<div class="col-2 text-end border">
 							120
 						</div>
-						<div class="col-2 border-primary border-2 border-bottom">
+						<div class="col-2 text-end border">
 							{{category.createdAt|date('d/m/Y')}}
+						</div>
 						</div>
 					{% endif %}
 				</div>
