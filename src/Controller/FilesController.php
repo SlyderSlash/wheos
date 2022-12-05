@@ -31,13 +31,14 @@ class FilesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // On RECUPERE les FICHIERS TRANSMIS
             $files = $form->get('files')->getData();
-            $file->setPath('%kernel.project_dir%/public/uploads'); // <- A VOIR PLUS TARD [!IMPORTANT!] / NOTE DU 2 NOVEMBRE : Attribution du Path bon ??
+            $file->setPath('/uploads/'.$form->get('name')->getData()); // <- A VOIR PLUS TARD [!IMPORTANT!] / NOTE DU 2 NOVEMBRE : Attribution du Path bon ??
             // dd($file); // TEST [!IMPORTANT!]
             
             // On BOUCLE sur les FICHIERS
             foreach($files as $file){
                 // On GENERE un NOUVEAU NOM au FICHIER
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                dd($fileName);
                 
                 // On COPIE le FICHIER dans le DOSSIER UPLOADS
                 $file->move(

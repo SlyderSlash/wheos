@@ -60,6 +60,7 @@ class Files
         $this->created_at = new DateTimeImmutable();
         $this->updated_at = new DateTimeImmutable();
         // $this->path = 'files_directory';
+        $this->user_id = 1;
     }
 
     public function getId(): ?int
