@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('utilisateurs')}}" class="btn btn-secondary">Me connecter</a>
+    {% else %}
+        Accés refusé
+{% endif %}
+
+{% endblock %}
