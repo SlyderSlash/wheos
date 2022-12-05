@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
             $mail->send(
                 'no-reply@wheos.fr',
                 $user->getEmail(),
-                'Activation de vôtre compte',
+                'Activation de votre compte',
                 'register',
                 compact('user', 'token')
                 );
@@ -144,7 +144,7 @@ class RegistrationController extends AbstractController
                 compact('user', 'token')
                 );
                 
-            $this->addFlash('danger', 'E-mail renvoyer.');
+            $this->addFlash('warning', 'E-mail de validation renvoyer.');
             return $this->redirectToRoute('app_main');
     }
 }
