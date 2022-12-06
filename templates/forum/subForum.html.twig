@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}WHEOS | FORUM
+{% block title %}WHEOS |{{category.name}}
 {% endblock %}
 
 {% block body %}
@@ -23,32 +23,49 @@
 				Bienvenue sur le forum des stagiaires des centres afpa du france.
 			</div>
 		</div>
+
 		<div class="row border border-primary border-2 rounded-top">
-					<div class="row collapse" id="{{category.name}}">
-						{% for subcategory in subCat %}
-							{% if (subcategory.parent.id == category.id) %}
-								<div class="col-6 border text-start ps-5">
-									<i class="fa-solid fa-folder"></i>
-									{{subcategory.name}}
-								</div>
-								<div class="col-2 border">
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-regular fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-paperclip"></i>
-								</div>
-								<div class="col-2 text-end border">
-									120
-								</div>
-								<div class="col-2 text-end border">
-									 {{subcategory.createat | date('d/m/Y')}}
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
+			<div class="row">
+				<div class="col-6  text-light text-start bg-dark bg-gradient"><i class="fa-solid fa-folder"></i> Sous forums</div>
+				<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+				<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
+				<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
+				{% for subcategory in subCategories %}
+					{% if subcategory.parent.id == category.parent.id %}
+						<div class="col-6 border text-start">
+							<i class="fa-solid fa-folder"></i>
+							{{subcategory.name}}
+						</div>
+						<div class="col-2 border">
+							<i class="fa-solid fa-star" style="color:gold;"></i>
+							<i class="fa-solid fa-star" style="color:gold;"></i>
+							<i class="fa-solid fa-star" style="color:gold;"></i>
+							<i class="fa-solid fa-star" style="color:gold;"></i>
+							<i class="fa-regular fa-star" style="color:gold;"></i>
+							<i class="fa-solid fa-paperclip"></i>
+						</div>
+						<div class="col-2 text-end border">
+							120
+						</div>
+						<div class="col-2 text-end border">
+							{{subcategory.createat | date('d/m/Y')}}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<div class="d-grid p-2 my-2">
+			<button type="button" class="btn btn-dark text-start">Ajouter un nouveau sujet</button>
 		</div>
 	</section>
+	<section class="container">
+		<div class="row border border-primary border-2 rounded-top"> 
+			<div class="col-6  text-light text-start bg-dark bg-gradient"> Sujet / Auteur</div>
+			<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+			<div class="col-2  text-light text-end  bg-dark bg-gradient">Réponses</div>
+			<div class="col-2  text-light text-center  bg-dark bg-gradient">Dernier message</div>
+		</div>
+	</section>
+
 
 {% endblock %}

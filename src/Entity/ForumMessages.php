@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\MessagesRepository;
+use App\Repository\ForumMessagesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MessagesRepository::class)]
-class Messages
+#[ORM\Entity(repositoryClass: ForumMessagesRepository::class)]
+class ForumMessages
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,18 +17,15 @@ class Messages
     private $content;
 
     #[ORM\Column(type: 'datetime')]
-    private $create_at;
+    private $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'messages')]
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'forumMessages')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-    #[ORM\ManyToOne(targetEntity: Forums::class, inversedBy: 'messages')]
+    #[ORM\ManyToOne(targetEntity: Forums::class, inversedBy: 'forumMessages')]
     #[ORM\JoinColumn(nullable: false)]
     private $forum;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $file_id;
 
     public function getId(): ?int
     {
@@ -47,14 +44,14 @@ class Messages
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->create_at;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $create_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->create_at = $create_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -79,18 +76,6 @@ class Messages
     public function setForum(?Forums $forum): self
     {
         $this->forum = $forum;
-
-        return $this;
-    }
-
-    public function getFileId(): ?int
-    {
-        return $this->file_id;
-    }
-
-    public function setFileId(?int $file_id): self
-    {
-        $this->file_id = $file_id;
 
         return $this;
     }

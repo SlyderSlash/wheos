@@ -38,12 +38,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $is_verified = false;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Messages::class, orphanRemoval: true)]
-    private $messages;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Forums::class)]
+    private $forums;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ForumMessages::class)]
+    private $forumMessages;
+
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
+        $this->forums = new ArrayCollection();
+        $this->forumMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,29 +177,59 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Messages>
+     * @return Collection<int, Forums>
      */
-    public function getMessages(): Collection
+    public function getForums(): Collection
     {
-        return $this->messages;
+        return $this->forums;
     }
 
-    public function addMessage(Messages $message): self
+    public function addForum(Forums $forum): self
     {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setUser($this);
+        if (!$this->forums->contains($forum)) {
+            $this->forums[] = $forum;
+            $forum->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Messages $message): self
+    public function removeForum(Forums $forum): self
     {
-        if ($this->messages->removeElement($message)) {
+        if ($this->forums->removeElement($forum)) {
             // set the owning side to null (unless already changed)
-            if ($message->getUser() === $this) {
-                $message->setUser(null);
+            if ($forum->getUser() === $this) {
+                $forum->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ForumMessages>
+     */
+    public function getForumMessages(): Collection
+    {
+        return $this->forumMessages;
+    }
+
+    public function addForumMessage(ForumMessages $forumMessage): self
+    {
+        if (!$this->forumMessages->contains($forumMessage)) {
+            $this->forumMessages[] = $forumMessage;
+            $forumMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumMessage(ForumMessages $forumMessage): self
+    {
+        if ($this->forumMessages->removeElement($forumMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($forumMessage->getUser() === $this) {
+                $forumMessage->setUser(null);
             }
         }
 

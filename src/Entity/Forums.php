@@ -19,7 +19,7 @@ class Forums
     private $title;
 
     #[ORM\Column(type: 'datetime')]
-    private $create_at;
+    private $createdAt;
 
     #[ORM\Column(type: 'boolean')]
     private $isResolved = false;
@@ -27,19 +27,20 @@ class Forums
     #[ORM\Column(type: 'boolean')]
     private $isClosed = false;
 
-    #[ORM\Column(type: 'integer')]
-    private $user_id;
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'forums')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
 
-    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: Messages::class, orphanRemoval: true)]
-    private $messages;
+    #[ORM\ManyToOne(targetEntity: Categories::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $category;
 
-    #[ORM\OneToMany(mappedBy: 'forums', targetEntity: Categories::class)]
-    private $categorie;
+    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: ForumMessages::class)]
+    private $forumMessages;
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
-        $this->categorie = new ArrayCollection();
+        $this->forumMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,14 +60,14 @@ class Forums
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->create_at;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $create_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->create_at = $create_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -95,72 +96,54 @@ class Forums
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getUser(): ?Users
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUser(?Users $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categories $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Messages>
+     * @return Collection<int, ForumMessages>
      */
-    public function getMessages(): Collection
+    public function getForumMessages(): Collection
     {
-        return $this->messages;
+        return $this->forumMessages;
     }
 
-    public function addMessage(Messages $message): self
+    public function addForumMessage(ForumMessages $forumMessage): self
     {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setForum($this);
+        if (!$this->forumMessages->contains($forumMessage)) {
+            $this->forumMessages[] = $forumMessage;
+            $forumMessage->setForum($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Messages $message): self
+    public function removeForumMessage(ForumMessages $forumMessage): self
     {
-        if ($this->messages->removeElement($message)) {
+        if ($this->forumMessages->removeElement($forumMessage)) {
             // set the owning side to null (unless already changed)
-            if ($message->getForum() === $this) {
-                $message->setForum(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Categories>
-     */
-    public function getCategorie(): Collection
-    {
-        return $this->categorie;
-    }
-
-    public function addCategorie(Categories $categorie): self
-    {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie[] = $categorie;
-            $categorie->setForums($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategorie(Categories $categorie): self
-    {
-        if ($this->categorie->removeElement($categorie)) {
-            // set the owning side to null (unless already changed)
-            if ($categorie->getForums() === $this) {
-                $categorie->setForums(null);
+            if ($forumMessage->getForum() === $this) {
+                $forumMessage->setForum(null);
             }
         }
 

@@ -19,13 +19,10 @@ class Categories
     private $name;
 
     #[ORM\Column(type: 'datetime')]
-    private $create_at;
+    private $createdAt;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
     private $parent;
-
-    #[ORM\ManyToOne(targetEntity: Forums::class, inversedBy: 'categorie')]
-    private $forums;
 
     public function __construct()
     {
@@ -49,14 +46,14 @@ class Categories
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->create_at;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $create_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->create_at = $create_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -91,18 +88,6 @@ class Categories
                 $parent->setParent(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getForums(): ?Forums
-    {
-        return $this->forums;
-    }
-
-    public function setForums(?Forums $forums): self
-    {
-        $this->forums = $forums;
 
         return $this;
     }

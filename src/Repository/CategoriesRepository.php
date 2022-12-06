@@ -39,28 +39,25 @@ class CategoriesRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Categories[] Returns an array of Categories objects
-//     */
-    public function findBySubCategories(): array
-   {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.parent is not null')
-//            ->setParameter('val', $value)
+    /**
+     * @return Categories[] Returns an array of Categories objects
+     */
+    public function categoriesRepository(): array
+    {
+        return $this->findBySubCategories('c')
+            ->andWhere('c.parent IS NOT NULL')
             ->orderBy('c.parent', 'ASC')
-//            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
-//    public function findOneBySomeField($value): ?Categories
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Categories
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
