@@ -42,17 +42,17 @@ class CategoriesRepository extends ServiceEntityRepository
 //    /**
 //     * @return Categories[] Returns an array of Categories objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
+    public function findBySubCategories(): array
+   {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.parent is not null')
 //            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.parent', 'ASC')
 //            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Categories
 //    {

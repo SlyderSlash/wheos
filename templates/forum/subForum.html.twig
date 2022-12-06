@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WHEOS | FORUM
+{% endblock %}
+
+{% block body %}
+	<section class="container">
+		<div class="row border-bottom my-3  d-flex align-items-center">
+			<div class="col-1">
+				<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+			</div>
+			<div class="col fs-2 text-start text-uppercase">
+				Forum
+			</div>
+		</div>
+
+		<div class="row d-flex align-items-center my-3 ">
+			<div class="col-2">
+				<img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
+			</div>
+			<div class="col-10 fs-2 text-start">
+				Forum d'entraide des stagiaires de l'AFPA.<br>
+				Bienvenue sur le forum des stagiaires des centres afpa du france.
+			</div>
+		</div>
+		<div class="row border border-primary border-2 rounded-top">
+					<div class="row collapse" id="{{category.name}}">
+						{% for subcategory in subCat %}
+							{% if (subcategory.parent.id == category.id) %}
+								<div class="col-6 border text-start ps-5">
+									<i class="fa-solid fa-folder"></i>
+									{{subcategory.name}}
+								</div>
+								<div class="col-2 border">
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-star" style="color:gold;"></i>
+									<i class="fa-regular fa-star" style="color:gold;"></i>
+									<i class="fa-solid fa-paperclip"></i>
+								</div>
+								<div class="col-2 text-end border">
+									120
+								</div>
+								<div class="col-2 text-end border">
+									 {{subcategory.createat | date('d/m/Y')}}
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+		</div>
+	</section>
+
+{% endblock %}
