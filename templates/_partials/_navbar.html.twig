@@ -1,19 +1,53 @@
-<body id="body-pd">
-    <header class="header" id="header">
-        <div class="header_toggle"><i class='bx bx-menu' id="header-toggle"></i></div>
-    </header>
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div><a href="{{ path('app_main') }}" class="nav_logo"><i class='bx bx-home-alt-2 nav_logo-icon'></i><span class="nav_logo-name">WHEOS</span></a>
-                <div class="nav_list"> 
-                <a href="#" class="nav_link active icon1"><i class='bx bx-book-open nav_icon'></i><span class="nav_name">Forum</span></a> 
-                <a href="#" class="nav_link icon2"><i class='bx bx-user nav_icon'></i><span class="nav_name">Users</span></a> 
-                <a href="#" class="nav_link icon3"><i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">Messages</span></a> 
-                <a href="#" class="nav_link icon4"><i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Bookmark</span></a> 
-                </div>
-            </div> 
-            <a href="{{ path('app_logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Déconnexion</span></a>
-        </nav>
-    </div>
-    <!--Container Main start-->
-    <!--Container Main end-->
+<div class="navigatetionner">
+        <div class="menuTogglerre"></div>
+        <div class="Listers">
+            <li class="lister activeer">
+                <a href="#" style="--clr:#f44336;">
+                    <span class="iconicicon"><ion-icon name="home-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#ffa117;">
+                    <span class="iconicicon"><ion-icon name="person-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">About</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#0fc70f;">
+                    <span class="iconicicon"><ion-icon name="chatbubble-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Messages</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#2196f3;">
+                    <span class="iconicicon"><ion-icon name="camera-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Photos</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#b145e9;">
+                    <span class="iconicicon"><ion-icon name="settings-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+        </div>
+</div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        let menuToggle = document.querySelector('.menuTogglerre');
+        let navigation = document.querySelector('.navigatetionner');
+        menuToggle.onclick = function(){
+            navigation.classList.toggle('activeer')
+        }
+
+        let list = document.querySelectorAll('.lister');
+        function activeLink(){
+            list.forEach((item) =>
+            item.classList.remove('activeer'));
+            this.classList.add('activeer');
+        }
+        list.forEach((item) =>
+        item.addEventListener('click',activeLink));
+    </script>
