@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+
+            <div class="col-xl-4 mb-5">
+                {% include 'home/_card.html.twig'
+                    with {
+                    'header': 'Coffre-fort',
+                    'text': 'Le coffre-fort est protégé par un mot de passe',
+                    'buttonClass': 'safeDepositBoxBtn',
+                    'buttonText': 'Accéder au coffre-fort'
+                } %}
+            </div>
+
+            <div class="col-xl-4 mb-5">
+                {% include 'home/_card.html.twig'
+                    with {
+                    'header': "S'inscrire",
+                    'text': 'Inscription gratuite',
+                    'buttonClass': 'registerBtn',
+                    'buttonText': "S'inscrire"
+                } %}
+            </div>
+
+            <div class="col-xl-4">
+                {% include 'home/_card.html.twig'
+                    with {
+                    'header': "Changer la couleur de l'arrière-plan",
+                    'text': "Changer la couleur de l'arrière-plan",
+                    'buttonClass': 'changeBackgroundColorBtn',
+                    'buttonText': "Changer la couleur"
+                } %}
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'home/_bg_color_template.html.twig' %}
+{% endblock %} 
