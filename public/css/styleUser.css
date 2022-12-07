@@ -1,0 +1,20 @@
+html,
+body,
+.intro {
+    height: 100%;
+}
+
+table {
+    background-color: #171331;
+}
+
+thead {
+    background-color: #0C4160;
+    color: white;
+    border: 1px solid #00C981;
+}
+
+tbody td {
+    color: white;
+    border: 1px solid #00C981;
+}
