@@ -23,6 +23,9 @@
 				Bienvenue sur le forum des stagiaires des centres afpa du france.
 			</div>
 		</div>
+		<pre>
+			{{ dump(categories) }}
+		</pre>
 		<div class="row border border-primary border-2 rounded-top">
 			{% for category in categories %}
 				<div class="row" >
@@ -53,7 +56,7 @@
 									120
 								</div>
 								<div class="col-2 text-end border">
-									 {{subcategory.createat | date('d/m/Y')}}
+									 {{subcategory.createdAt | date('d/m/Y')}}
 								</div>
 							{% endif %}
 						{% endfor %}

@@ -39,20 +39,20 @@ class ForumsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Forums[] Returns an array of Forums objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
+    /**
+     * @return Forums[] Returns an array of Forums objects
+     */
+    public function findByMessagesForum($value): array
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('f.id', 'ASC')
 //            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Forums
 //    {

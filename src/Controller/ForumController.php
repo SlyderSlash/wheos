@@ -2,23 +2,28 @@
 
 namespace App\Controller;
 
+use App\Entity\ForumMessages;
+use App\Entity\Forums;
 use App\Repository\CategoriesRepository;
 use App\Repository\ForumsRepository;
+use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ForumController extends AbstractController
 {
-    #[Route('/forum', name: 'app_forum')]
-    public function home(CategoriesRepository $categoriesRepository,$id): Response
+    #[Route('/forum', name: 'app_forum', methods:'GET')]
+    public function home(CategoriesRepository $categoriesRepository,ForumMessages $messages): Response
     {
-        $subCategories = $categoriesRepository -> findBySubCategories($id);
+        $subCategories = $categoriesRepository -> findBySubCategories();
+        $forums = $messages->getForum();
 
         return $this->render('forum/home.html.twig', [
             'controller_name' => 'ForumController',
             'categories' => $categoriesRepository->findBy(['parent' => Null], ['id' => 'asc']),
             'subCat' => $subCategories
+           // 'messages' => $messages
         ]);
     }
 }
