@@ -1,0 +1,52 @@
+body{
+    background-color: #071330;
+}
+
+footer{
+    background-color: #525968;
+    margin-top : 293px;
+}
+
+img{
+    width : 170px;
+}
+
+a, .material-symbols-outlined {
+    color : white;
+}
+
+a{
+    text-decoration: none;
+}
+
+.search{
+    margin-left : 805px;
+}
+
+.notifications{
+    margin-left : 165px;
+}
+
+.profile{
+    margin-left : 25px;
+}
+
+.left{
+    margin-left : 150px;
+}
+
+.elem{
+    margin-left : 230px;
+}
+
+.addfile{
+    color: blue;
+}
+
+.contact{
+    margin-left : 735px;
+}
+
+.sousmenu{
+    margin-top : 30px;
+}

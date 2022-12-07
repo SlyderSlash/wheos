@@ -2,7 +2,21 @@
 
 {% block title %}Files index{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/filesstyles.css')}} "> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+
 {% block body %}
+    <header>
+    
+    <img src ="{{ asset('images/wheoslogo.png')}} " alt ="logowheos">
+    <span class="material-symbols-outlined search"> search </span> Search
+    <span class="material-symbols-outlined notifications"> notifications </span>
+    <span class="material-symbols-outlined profile"> account_circle </span>
+    
+    </header>
+    
     <h1>Files index</h1>
 
     <table class="table">
@@ -37,156 +51,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_files_new') }}">Create new</a>
-{% endblock %}
-{% extends 'base.html.twig' %}
-
-{% block title %}Files{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/filesstyles.css')}} "> 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<header>
-<img class="logo" src="{{ asset('images/logowheos.png')}}"> </img>
-<span class="material-symbols-outlined search"> Search </span> <text>search...</text>
-<span class="material-symbols-outlined notification"> Notifications</span>
-<span class="material-symbols-outlined account">account_circle</span>
-</header>
-
-<aside>
-<span class="material-symbols-outlined">menu</span>
-<span class="material-symbols-outlined">home</span>
-</aside>
-
-<div class="example-wrapper">
-
-<div class="titre">
-<span class="material-symbols-outlined titreforum">forum </span> <text class = "textforum">Forum</text>
-</div> 
-
-<div class="bienvenue">
-<img class="logoforum" src="{{ asset('images/wheosforum.png')}}"> </img> <br>
-<text class="textbienvenue"> Forum d'entraide des stagiaires de l'AFPA.</text> <br>
-<text class="textbienvenue"> Bienvenue sur le forum des stagiaires des centres AFPA de France.</text> 
-</div>
-
-<div class="category1">
-<span class="material-symbols-outlined folderopen"> folder_open </span> <text class = "textfolder">Administration</text>
-<text class="textmessages"> Messages </text>
-<text class="textdate"> Date </text>
-</div> 
-
-<div class="undercategory1">
-<span class="material-symbols-outlined folder">folder </span>
-<text class="theme"> Informations </text>
-<span class="material-symbols-outlined rank1"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> upload_file </span>
-<text class="messages"> 50 </text>
-<text class="date"> 01/02/2022 </text>
-</div>
-
-<div class="undercategory2">
-<span class="material-symbols-outlined folder">folder </span>
-<text class="theme"> Orientation </text>
-<span class="material-symbols-outlined rank2"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> upload_file </span>
-<text class="messages"> 50 </text>
-<text class="date"> 01/02/2022 </text>
-</div>
-
-<div class="undercategory3">
-<span class="material-symbols-outlined folder">folder </span>
-<text class="theme"> Inscription </text>
-<span class="material-symbols-outlined rank3"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> upload_file </span>
-<text class="messages"> 50 </text>
-<text class="date"> 01/02/2022 </text>
-</div>
-
-<div class="category2">
-<span class="material-symbols-outlined folderopen"> folder_open </span> <text class = "textfolder">Formations</text>
-<text class="textmessages2"> Messages </text>
-<text class="textdate"> Date </text>
-</div> 
-
-<div class="undercategory1">
-<span class="material-symbols-outlined folder">folder </span>
-<text class="theme"> Informations </text>
-<span class="material-symbols-outlined rank1"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> upload_file </span>
-<text class="messages"> 50 </text>
-<text class="date"> 01/02/2022 </text>
-</div>
-
-<div class="undercategory2">
-<span class="material-symbols-outlined folder">folder </span>
-<text class="theme"> Orientation </text>
-<span class="material-symbols-outlined rank2"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> upload_file </span>
-<text class="messages"> 50 </text>
-<text class="date"> 01/02/2022 </text>
-</div>
-
-<div class="undercategory3">
-<span class="material-symbols-outlined folder">folder </span>
-<text class="theme"> Inscription </text>
-<span class="material-symbols-outlined rank3"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> star </span>
-<span class="material-symbols-outlined"> upload_file </span>
-<text class="messages"> 50 </text>
-<text class="date"> 01/02/2022 </text>
-</div>
-
-<div class="pages">
-<text> 1 </text>
-<text> 2 </text>
-<text> 3 </text>
-<text> 4 </text>
-<text> 5 </text>
-<text> ..... </text>
-<text> Suivant </text>
-</div>
-
-</div>
-
+    <button> <a class="addfile" href="{{ path('app_files_new') }}">Create new</a> </button>
 
 <footer>
 <div class = "menu">
 <a class="left" href = "#accueil.html"> WHEOS </a>
-<a href = "#forums.html"> Forums </a>
-<a href = "#vide.html"> ----------- </a>
-<a href = "#aide.html"> Aide </a>
+<a class="elem" href = "#forums.html"> Forums </a>
+<a class="elem" href = "#vide.html"> ----------- </a>
+<a class="elem" href = "#aide.html"> Aide </a>
 
 <div class = "sousmenu">
 <a class="left" href = "#quisommesnous.html"> Qui sommes nous ? </a>
