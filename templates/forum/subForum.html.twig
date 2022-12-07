@@ -26,7 +26,9 @@
 
 		<div class="row border border-primary border-2 rounded-top">
 			<div class="row">
-				<div class="col-6  text-light text-start bg-dark bg-gradient"><i class="fa-solid fa-folder"></i> Sous forums</div>
+				<div class="col-6  text-light text-start bg-dark bg-gradient">
+					<i class="fa-solid fa-folder"></i>
+					Sous forums</div>
 				<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
 				<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
 				<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
@@ -45,7 +47,18 @@
 							<i class="fa-solid fa-paperclip"></i>
 						</div>
 						<div class="col-2 text-end border">
-							120
+							{% set nbMessages = 0 %}
+
+							{% for forum in forums %}
+								{% if forum.category.id == subcategory.id %}
+									{% for msg in messages %}
+										{% if msg.forum == forum.id %}
+											{% set nbMessages = msg.NB %}
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							{% endfor %}
+							{{nbMessages}}
 						</div>
 						<div class="col-2 text-end border">
 							{{subcategory.createdAt | date('d/m/Y')}}
@@ -59,13 +72,13 @@
 		</div>
 	</section>
 	<section class="container">
-		<div class="row border border-primary border-2 rounded-top"> 
-			<div class="col-6  text-light text-start bg-dark bg-gradient"> Sujet / Auteur</div>
+		<div class="row border border-primary border-2 rounded-top">
+			<div class="col-6  text-light text-start bg-dark bg-gradient">
+				Sujet / Auteur</div>
 			<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
 			<div class="col-2  text-light text-end  bg-dark bg-gradient">Réponses</div>
 			<div class="col-2  text-light text-center  bg-dark bg-gradient">Dernier message</div>
 		</div>
 	</section>
-
 
 {% endblock %}

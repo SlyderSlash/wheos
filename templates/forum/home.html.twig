@@ -23,26 +23,23 @@
 				Bienvenue sur le forum des stagiaires des centres afpa du france.
 			</div>
 		</div>
-		<pre>
-			{{ dump(categories) }}
-		</pre>
 		<div class="row border border-primary border-2 rounded-top">
 			{% for category in categories %}
-				<div class="row" >
-						<div class="col-6  text-light text-start bg-dark bg-gradient" data-bs-toggle="collapse" data-bs-target="#{{category.name}}" aria-expanded="false" aria-controls="{{category.name}}">
-							<i class="fa-solid fa-folder"></i>
-							{{category.name}}
-						</div>
-						<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-						<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
-						<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
+				<div class="row">
+					<div class="col-6  text-light text-start bg-dark bg-gradient" data-bs-toggle="collapse" data-bs-target="#{{category.name}}" aria-expanded="false" aria-controls="{{category.name}}">
+						<i class="fa-solid fa-folder"></i>
+						{{category.name}}
+					</div>
+					<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+					<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
+					<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
 					<div class="row collapse" id="{{category.name}}">
 						{% for subcategory in subCat %}
 							{% if (subcategory.parent.id == category.id) %}
 								<div class="col-6 border text-start ps-5">
 									<i class="fa-solid fa-folder"></i>
 									<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" role="button">
-									{{subcategory.name}}</a>
+										{{subcategory.name}}</a>
 								</div>
 								<div class="col-2 border">
 									<i class="fa-solid fa-star" style="color:gold;"></i>
@@ -53,10 +50,21 @@
 									<i class="fa-solid fa-paperclip"></i>
 								</div>
 								<div class="col-2 text-end border">
-									120
+									{% set nbMessages = 0 %}
+
+									{% for forum in forums %}
+										{% if forum.category.id == subcategory.id %}
+										{% for msg in messages %}
+											{% if msg.forum == forum.id %}
+												{% set nbMessages = msg.NB %}
+											{% endif %}
+										{% endfor %}
+										{% endif %}
+									{% endfor %}
+									{{nbMessages}}
 								</div>
 								<div class="col-2 text-end border">
-									 {{subcategory.createdAt | date('d/m/Y')}}
+									{{subcategory.createdAt | date('d/m/Y')}}
 								</div>
 							{% endif %}
 						{% endfor %}

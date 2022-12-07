@@ -42,12 +42,12 @@ class ForumsRepository extends ServiceEntityRepository
     /**
      * @return Forums[] Returns an array of Forums objects
      */
-    public function findByMessagesForum($value): array
+    public function findByForum(): array
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
+//            ->andWhere('f.category = :val')
+//            ->setParameter('val', $categoryId)
+            ->orderBy('f.createdAt', 'DESC')
 //            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
