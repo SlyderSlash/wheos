@@ -21,28 +21,34 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => 'user@exemple.com'
                 ],
-                'label' => 'E-mail'
+                'label' => ' '
             ])
             ->add('lastname', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => 'Nom'
                 ],
-                'label' => 'Nom'
+                'label' => ' '
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => 'Prénom'
                 ],
-                'label' => 'Prénom'
+                'label' => ' '
             ])
             ->add('RGPDConsent', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'En m\'inscrivant à ce site j\'accepte...',
                     ]),
+                ],
+                'attr' => [
+                    'class' => 'consent'
                 ],
                 'label' => 'En m\'inscrivant à ce site j\'accepte...'
             ])
@@ -52,7 +58,8 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' => 'form-control'
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => 'Mot de passe'
                 ],
                 'constraints' => [
                     new NotBlank([

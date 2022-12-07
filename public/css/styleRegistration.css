@@ -1,0 +1,44 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #171331;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: #171331;
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #171331;
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+    top: 13px;
+}
+
+.card-registration {
+    background-color: #0C4160;
+}
+
+.card-registration {
+    border: 1px solid #00C981;
+}
+
+.title,
+.account,
+.consent {
+    color: #00C981;
+}
+
+.form-control-lg {
+    border: 1px solid #00C981;
+    background-color: #0C4160;
+}
+
+.btnSub {
+    border: 1px solid #00C981;
+    color: white;
+}

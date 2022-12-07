@@ -7,10 +7,10 @@
 
 <form method="post">
 
- <section class='container'>
+ {#<section class='container'>
         <div class='row'>
             <div class='col'>
-                <h1 class="h3 mb-3 mt-5 font-weight-normal">Se connecter</h1>
+                {#<h1 class="h3 mb-3 mt-5 font-weight-normal">Se connecter</h1>
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
@@ -21,14 +21,13 @@
                         </div>
                     {% endif %}
 
-                    <label for="inputEmail">E-mail</label>
+                    {#<label for="inputEmail">E-mail</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
                     <label for="inputPassword">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
                     <input type="hidden" name="_csrf_token"
-                        value="{{ csrf_token('authenticate') }}"
-                    >
+                        value="{{ csrf_token('authenticate') }}">
 
                     {#
                         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -41,11 +40,67 @@
                         </div>
                     #}
 
-                    <button class="btn btn-lg btn-primary my-3" type="submit">
+                    {#<button class="btn btn-lg btn-primary my-3" type="submit">
                         Se connecter
                     </button>
             </div>
+        </div>#}
+
+
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 title">CONNECTEZ-VOUS</h3>
+            <form>
+            {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Vous êtes connecté(e) comme {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+
+              <div class="row">
+                <div class="col mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="E-mail" required autofocus>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
+                  </div>
+
+                  <input type="hidden" name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}">
+
+                </div>
+              </div>
+
+              
+
+              <div class="mt-2 pt-2">
+                <input class="btn btn-lg btnSub" type="submit" value="Se connecter" />
+              </div><br>
+              <a class="account" href="{{ path('app_register')}}">Pas encore de compte ?</a>
+            </form>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
     </section>
 </form>
 {% endblock %}
