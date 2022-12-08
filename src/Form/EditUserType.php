@@ -29,8 +29,12 @@ class EditUserType extends AbstractType
                     'message' => 'Merci d\'entrer un e-mail',
                 ]),
             ],
+            'label' => 'E-mail',
             'required' => true,
-            'attr' => ['class' =>'form-control'],
+            'attr' => [
+                'class' =>'form-control mt-1 mb-3',
+                'style' =>'border: 1px solid #00C981; background-color: #0C4160; color: white'
+        ],
         ])
         ->add('roles', ChoiceType::class, [
             'choices' => [
@@ -40,9 +44,17 @@ class EditUserType extends AbstractType
             ],
             'expanded' => true,
             'multiple' => true,
-            'label' => 'Rôles' 
+            'label' => 'Rôles :',
+            'attr' => [
+                'class' =>'mt-1',
+        ],
         ])
-        ->add('valider', SubmitType::class)
+        ->add('valider', SubmitType::class, [
+            'attr' => [
+                'class' =>'btn btn-light mt-3',
+                'style' =>'background-color: #0C4160; color: white; border: 1px solid #00C981'
+            ],
+        ])
         ;
     }
 
