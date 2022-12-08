@@ -3,20 +3,65 @@ body{
 }
 
 footer{
-    background-color: #525968;
-    margin-top : 293px;
+    background-color: #0C4160;
+    margin-top : 75px;
+}
+
+header{
+    margin-top: 10px;
+    display: block
 }
 
 img{
-    width : 170px;
+    width : 120px;
+    margin-left: 25px;
 }
 
-a, .material-symbols-outlined {
+aside{
+    background-color: #224C74;
+    width : 50px;
+    height : 400px;
+    margin-left : 60px;
+    border : #00AE07 2px solid;
+}
+
+a,.table,.material-symbols-outlined {
     color : white;
+}
+
+.table{
+    width:1115px;
+    margin-left : 200px;
+    background-color : #0C4160;
+}
+
+button{
+    margin-left : 700px;
 }
 
 a{
     text-decoration: none;
+}
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    margin-bottom: 40px;
+    position: relative;
+    right : 20px;
+}
+
+h1{
+    color : rgba(1, 174, 116, 1);
+    font-family: 'Times New Roman', Times, serif;
+    margin-left : 660px;
+}
+
+.conteneur{
+    position: absolute;
+    top : 130px;
 }
 
 .search{
@@ -24,11 +69,15 @@ a{
 }
 
 .notifications{
-    margin-left : 165px;
+    margin-left : 199px;
 }
 
 .profile{
     margin-left : 25px;
+}
+
+.chat{
+    background-color: #00AE07;
 }
 
 .left{
@@ -38,6 +87,7 @@ a{
 .elem{
     margin-left : 230px;
 }
+
 
 .addfile{
     color: blue;
