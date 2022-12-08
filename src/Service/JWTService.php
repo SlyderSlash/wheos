@@ -9,9 +9,9 @@ class JWTService
     /**
      * Génération du token
      *
-     * @param array $header |
-     * @param array $payload |
-     * @param string $secret | 
+     * @param array $header | Algorithm et type de token (ex: alg HS256, typ JWT)
+     * @param array $payload | Data (ex: name, iat)
+     * @param string $secret | clé secrete 
      * @param integer $validity | Durée de validité du token
      * @return string
      */
