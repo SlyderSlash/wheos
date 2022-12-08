@@ -14,6 +14,16 @@ class SendMailService
         $this->mailer = $mailer;
     }
 
+    /**
+     * Envoie du mail
+     *
+     * @param string $from
+     * @param string $to
+     * @param string $subject
+     * @param string $template
+     * @param array $context
+     * @return void
+     */
     public function send(string $from, string $to, string $subject, string $template, array $context): void
     {
         // crée le mail
