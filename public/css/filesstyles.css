@@ -2,11 +2,6 @@ body{
     background-color: #071330;
 }
 
-footer{
-    background-color: #0C4160;
-    margin-top : 75px;
-}
-
 header{
     margin-top: 10px;
     display: block
@@ -15,14 +10,6 @@ header{
 img{
     width : 120px;
     margin-left: 25px;
-}
-
-aside{
-    background-color: #224C74;
-    width : 50px;
-    height : 400px;
-    margin-left : 60px;
-    border : #00AE07 2px solid;
 }
 
 a,.table,.material-symbols-outlined {
@@ -37,31 +24,20 @@ a,.table,.material-symbols-outlined {
 
 button{
     margin-left : 700px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color : #0C4160;
+    border :rgba(1, 174, 116, 1) 2px solid;
 }
 
 a{
     text-decoration: none;
 }
 
-ul{
-    list-style-type: none;
-}
-
-li{
-    margin-bottom: 40px;
-    position: relative;
-    right : 20px;
-}
 
 h1{
     color : rgba(1, 174, 116, 1);
     font-family: 'Times New Roman', Times, serif;
     margin-left : 660px;
-}
-
-.conteneur{
-    position: absolute;
-    top : 130px;
 }
 
 .search{
@@ -76,9 +52,6 @@ h1{
     margin-left : 25px;
 }
 
-.chat{
-    background-color: #00AE07;
-}
 
 .left{
     margin-left : 150px;
@@ -86,11 +59,6 @@ h1{
 
 .elem{
     margin-left : 230px;
-}
-
-
-.addfile{
-    color: blue;
 }
 
 .contact{
