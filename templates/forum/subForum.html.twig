@@ -48,32 +48,43 @@
 								<i class="fa-solid fa-paperclip"></i>
 							</div>
 							<div class="col-2 text-end border-bottom">
-								{% set nbMessages = 0 %}
-								{% for forum in forums %}
-									{% if forum.category.id == subcategory.id %}
-										{% for msg in messages %}
-											{% if msg.forum == forum.id %}
-												{% set nbMessages = msg.NB %}
-											{% endif %}
-										{% endfor %}
+								{% set break = false %}
+								{% for forum in allforums %}
+									{% if forum.category == subcategory.id %}
+										{% if not break %}
+											{{forum.nb}}
+											{% set break = true %}
+										{% endif %}
 									{% endif %}
-								{% endfor %}
-								{{nbMessages}}
+								{% endfor %} 
 							</div>
 							<div class="col-2 text-end border-bottom">
 								{{subcategory.createdAt | date('d/m/Y')}}
 							</div>
 						{% endif %}
-					{% endfor %}
+					{% endfor %} 
 				</div>
 			</div>
+
 			<div class="p-2 my-2 text-end">
-				<button type="button" class="btn btn-dark text-start">Ajouter un nouveau sujet
+				<button type="button" class="btn btn-dark text-start" data-bs-toggle="collapse" data-bs-target="#frm">Ajouter un nouveau sujet
 					<i class="bi bi-plus-circle-fill"></i>
 				</button>
 			</div>
-		</section>
-		<section class="container">
+			<div
+				class="row border collapse my-2" id="frm">
+					{# templates/task/new.html.twig #}
+					{{ form_start(categoryform) }}
+					{{ form_widget(categoryform) }}
+						<div class="mb-3">
+							<label for="message" class="form-label">Message</label>
+							<textarea class="form-control" id="message" name="message" rows="3"></textarea>
+						</div>
+						<div class="col-12">
+							<button class="btn btn-primary" type="submit">Ajouter</button>
+						</div>
+					{{ form_end(categoryform) }}
+			</div>
 			<div class="row border border-primary border-2 rounded-top">
 				<div class="row">
 					<div class="col-6  text-light text-start bg-dark bg-gradient">
@@ -83,34 +94,39 @@
 					<div class="col-2  text-light text-center  bg-dark bg-gradient">Dernier message</div>
 				</div>
 				<div class="row">
-					{% for forum in forums %}
-						{% if forum.category.id ==  category.id %}
-							{% for response in messages %}
-								{% if response.forum == forum.id %}
-									<div class="col-6 text-dark text-start border-bottom">
-										<div class="row">
-											<div class="col-3">
-												<i class="bi bi-person-circle"></i>
-												{{lastMessages[0].user.getLastName()}}
-											</div>
-											<div class="col">
-												{{forum.title}}
-											</div>
-										</div>
+					{% for forum in allforums %}
+						{% if forum.category ==  category.id %}
+							<div class="col-6 text-dark text-start border-bottom">
+								<div class="row">
+									<div class="col-3">
+										<i class="bi bi-person-circle"></i>
+										{{forum.prenom}}
 									</div>
-									<div class="col-2  text-dark text-end border-bottom"></div>
-									<div class="col-2  text-dark text-end border-bottom">{{response.NB}}</div>
-									<div class="col-2  text-dark text-center border-bottom">{{lastMessages[0].content}}</div>
+									<div class="col">
+										{{forum.titre}}
+									</div>
+								</div>
+							</div>
+							<div class="col-2  text-dark text-end border-bottom"></div>
+							<div class="col-2  text-dark text-end border-bottom">{{forum.nb}}</div>
+							<div class="col-2  text-dark text-center border-bottom">
+							{% set break = false %}
+							{% for lsMsg in lastMessages %}
+								{% if lsMsg.forum.id == forum.forum %}
+									{% if not break %}
+										{{lsMsg.content}}
+										{% set break = true %}									
+									{% endif %}
 								{% endif %}
 							{% endfor %}
+							</div>
 						{% endif %}
 					{% endfor %}
 				</div>
 			</div>
-		</section>
-		{% else %}
-		{# TODO : afficher un message d'erreur ou information de connexion !#}
-	{% endif %}
-
+			{% else %}
+			{# TODO : afficher un message d'erreur ou information de connexion !#}
+		{% endif %}
+	</section>
 
 {% endblock %}

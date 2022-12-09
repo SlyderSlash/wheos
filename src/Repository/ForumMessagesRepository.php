@@ -53,6 +53,25 @@ class ForumMessagesRepository extends ServiceEntityRepository
        ;
     }
 
+    public function findAllForumMessages(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT f.id as forum,f.category_id as category,u.first_name as prenom, 
+                    f.title as titre,count(f.id) as nb  FROM forums f
+            LEFT JOIN forum_messages fm ON f.id = fm.forum_id
+            LEFT JOIN users u ON f.user_id = u.id
+            group by f.id
+            ORDER BY f.category_id asc,f.id ASC
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
     public function findByLastMessages($forumId): array
     {
         return $this->createQueryBuilder('f')
