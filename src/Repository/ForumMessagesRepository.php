@@ -53,6 +53,17 @@ class ForumMessagesRepository extends ServiceEntityRepository
        ;
     }
 
+    public function findByLastMessages($forumId): array
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.forum = :val')
+            ->setParameter('val', $forumId)
+            ->orderBy('f.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+       ;
+    }
+
 //    public function findOneBySomeField($value): ?ForumMessages
 //    {
 //        return $this->createQueryBuilder('f')

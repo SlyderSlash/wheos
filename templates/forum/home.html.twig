@@ -38,7 +38,7 @@
 							{% if (subcategory.parent.id == category.id) %}
 								<div class="col-6 border text-start ps-5">
 									<i class="fa-solid fa-folder"></i>
-									<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" role="button">
+									<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" class="text-decoration-none text-dark" role="button">
 										{{subcategory.name}}</a>
 								</div>
 								<div class="col-2 border">
@@ -51,7 +51,6 @@
 								</div>
 								<div class="col-2 text-end border">
 									{% set nbMessages = 0 %}
-
 									{% for forum in forums %}
 										{% if forum.category.id == subcategory.id %}
 										{% for msg in messages %}

@@ -23,62 +23,94 @@
 				Bienvenue sur le forum des stagiaires des centres afpa du france.
 			</div>
 		</div>
-
-		<div class="row border border-primary border-2 rounded-top">
-			<div class="row">
-				<div class="col-6  text-light text-start bg-dark bg-gradient">
-					<i class="fa-solid fa-folder"></i>
-					Sous forums</div>
-				<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-				<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
-				<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
-				{% for subcategory in subCategories %}
-					{% if subcategory.parent.id == category.parent.id %}
-						<div class="col-6 border text-start">
-							<i class="fa-solid fa-folder"></i>
-							{{subcategory.name}}
-						</div>
-						<div class="col-2 border">
-							<i class="fa-solid fa-star" style="color:gold;"></i>
-							<i class="fa-solid fa-star" style="color:gold;"></i>
-							<i class="fa-solid fa-star" style="color:gold;"></i>
-							<i class="fa-solid fa-star" style="color:gold;"></i>
-							<i class="fa-regular fa-star" style="color:gold;"></i>
-							<i class="fa-solid fa-paperclip"></i>
-						</div>
-						<div class="col-2 text-end border">
-							{% set nbMessages = 0 %}
-
-							{% for forum in forums %}
-								{% if forum.category.id == subcategory.id %}
-									{% for msg in messages %}
-										{% if msg.forum == forum.id %}
-											{% set nbMessages = msg.NB %}
-										{% endif %}
-									{% endfor %}
+		{% if app.user %}
+			<div class="row border border-primary border-2 rounded-top">
+				<div class="row">
+					<div class="col-6  text-light text-start bg-dark bg-gradient">
+						<i class="fa-solid fa-folder"></i>
+						Sous forums
+					</div>
+					<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+					<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
+					<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
+					{% for subcategory in subCategories %}
+						{% if subcategory.parent.id == category.parent.id %}
+							<div class="col-6 text-start border-bottom">
+								<i class="fa-solid fa-folder"></i>
+								{{subcategory.name}}
+							</div>
+							<div class="col-2 border-bottom">
+								<i class="fa-solid fa-star" style="color:gold;"></i>
+								<i class="fa-solid fa-star" style="color:gold;"></i>
+								<i class="fa-solid fa-star" style="color:gold;"></i>
+								<i class="fa-solid fa-star" style="color:gold;"></i>
+								<i class="fa-regular fa-star" style="color:gold;"></i>
+								<i class="fa-solid fa-paperclip"></i>
+							</div>
+							<div class="col-2 text-end border-bottom">
+								{% set nbMessages = 0 %}
+								{% for forum in forums %}
+									{% if forum.category.id == subcategory.id %}
+										{% for msg in messages %}
+											{% if msg.forum == forum.id %}
+												{% set nbMessages = msg.NB %}
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+								{% endfor %}
+								{{nbMessages}}
+							</div>
+							<div class="col-2 text-end border-bottom">
+								{{subcategory.createdAt | date('d/m/Y')}}
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="p-2 my-2 text-end">
+				<button type="button" class="btn btn-dark text-start">Ajouter un nouveau sujet
+					<i class="bi bi-plus-circle-fill"></i>
+				</button>
+			</div>
+		</section>
+		<section class="container">
+			<div class="row border border-primary border-2 rounded-top">
+				<div class="row">
+					<div class="col-6  text-light text-start bg-dark bg-gradient">
+						Sujet / Auteur</div>
+					<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+					<div class="col-2  text-light text-end  bg-dark bg-gradient">Réponses</div>
+					<div class="col-2  text-light text-center  bg-dark bg-gradient">Dernier message</div>
+				</div>
+				<div class="row">
+					{% for forum in forums %}
+						{% if forum.category.id ==  category.id %}
+							{% for response in messages %}
+								{% if response.forum == forum.id %}
+									<div class="col-6 text-dark text-start border-bottom">
+										<div class="row">
+											<div class="col-3">
+												<i class="bi bi-person-circle"></i>
+												{{lastMessages[0].user.getLastName()}}
+											</div>
+											<div class="col">
+												{{forum.title}}
+											</div>
+										</div>
+									</div>
+									<div class="col-2  text-dark text-end border-bottom"></div>
+									<div class="col-2  text-dark text-end border-bottom">{{response.NB}}</div>
+									<div class="col-2  text-dark text-center border-bottom">{{lastMessages[0].content}}</div>
 								{% endif %}
 							{% endfor %}
-							{{nbMessages}}
-						</div>
-						<div class="col-2 text-end border">
-							{{subcategory.createdAt | date('d/m/Y')}}
-						</div>
-					{% endif %}
-				{% endfor %}
+						{% endif %}
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-		<div class="d-grid p-2 my-2">
-			<button type="button" class="btn btn-dark text-start">Ajouter un nouveau sujet</button>
-		</div>
-	</section>
-	<section class="container">
-		<div class="row border border-primary border-2 rounded-top">
-			<div class="col-6  text-light text-start bg-dark bg-gradient">
-				Sujet / Auteur</div>
-			<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-			<div class="col-2  text-light text-end  bg-dark bg-gradient">Réponses</div>
-			<div class="col-2  text-light text-center  bg-dark bg-gradient">Dernier message</div>
-		</div>
-	</section>
+		</section>
+		{% else %}
+		{# TODO : afficher un message d'erreur ou information de connexion !#}
+	{% endif %}
+
 
 {% endblock %}
