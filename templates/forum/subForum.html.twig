@@ -7,10 +7,17 @@
 	<section class="container">
 		<div class="row border-bottom my-3  d-flex align-items-center">
 			<div class="col-1">
-				<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+				<a href="{{ path('app_forum') }}" class="text-decoration-none text-dark" role="button">
+					<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+				</a>
 			</div>
-			<div class="col fs-2 text-start text-uppercase">
-				Forum
+			<div class="col fs-4 text-start text-uppercase">
+				<span class="badge bg-info">
+					<a href="{{path('app_forum')}}" class="text-decoration-none">Forum</a>
+				</span>
+				<span class="badge bg-info">
+					<a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none">{{category.name}}</a>
+				</span>
 			</div>
 		</div>
 
@@ -37,7 +44,8 @@
 						{% if subcategory.parent.id == category.parent.id %}
 							<div class="col-6 text-start border-bottom">
 								<i class="fa-solid fa-folder"></i>
-								{{subcategory.name}}
+								<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" class="text-decoration-none text-dark" role="button">
+											{{subcategory.name}}</a>
 							</div>
 							<div class="col-2 border-bottom">
 								<i class="fa-solid fa-star" style="color:gold;"></i>
@@ -71,20 +79,20 @@
 					<i class="bi bi-plus-circle-fill"></i>
 				</button>
 			</div>
-			<div
-				class="row border collapse my-2" id="frm">
-					{# templates/task/new.html.twig #}
+			{# formulaire #}
+			<div class="row border collapse my-2" id="frm">
 					{{ form_start(categoryform) }}
 					{{ form_widget(categoryform) }}
 						<div class="mb-3">
 							<label for="message" class="form-label">Message</label>
-							<textarea class="form-control" id="message" name="message" rows="3"></textarea>
+							<textarea class="form-control" id="message" name="message" rows="3" required></textarea>
 						</div>
 						<div class="col-12">
 							<button class="btn btn-primary" type="submit">Ajouter</button>
 						</div>
 					{{ form_end(categoryform) }}
 			</div>
+			
 			<div class="row border border-primary border-2 rounded-top">
 				<div class="row">
 					<div class="col-6  text-light text-start bg-dark bg-gradient">
@@ -103,7 +111,8 @@
 										{{forum.prenom}}
 									</div>
 									<div class="col">
-										{{forum.titre}}
+										<a href="{{ path('forum_sujet',{id:forum.category, sujet:forum.forum}) }}" class="text-decoration-none text-dark" role="button">
+											{{forum.titre}}</a>										
 									</div>
 								</div>
 							</div>
@@ -125,7 +134,11 @@
 				</div>
 			</div>
 			{% else %}
-			{# TODO : afficher un message d'erreur ou information de connexion !#}
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert-message">
+					<p>Vous devez être connecté pour acceder au discussions</p>
+				</div>
+			</div>
 		{% endif %}
 	</section>
 

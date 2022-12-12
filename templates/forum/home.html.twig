@@ -5,16 +5,20 @@
 
 {% block body %}
 	<section class="container">
-		<div class="row border-bottom my-3  d-flex align-items-center">
+		<div class="row border-bottom my-3 align-items-center">
 			<div class="col-1">
-				<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+				<a href="{{ path('app_forum') }}" class="text-decoration-none text-dark" role="button">
+					<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+				</a>
 			</div>
-			<div class="col fs-2 text-start text-uppercase">
-				Forum
+			<div class="col fs-4 text-start text-uppercase">
+				<span class="badge bg-info">
+					<a href="{{path('app_forum')}}" class="text-decoration-none">Forum</a>
+				</span>
 			</div>
 		</div>
 
-		<div class="row d-flex align-items-center my-3 ">
+		<div class="row align-items-center my-3 ">
 			<div class="col-2">
 				<img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
 			</div>
@@ -23,54 +27,64 @@
 				Bienvenue sur le forum des stagiaires des centres afpa du france.
 			</div>
 		</div>
-		<div class="row border border-primary border-2 rounded-top">
-			{% for category in categories %}
-				<div class="row">
-					<div class="col-6  text-light text-start bg-dark bg-gradient" id="Collapse" data-bs-toggle="collapse" data-bs-target="#{{category.name}}" aria-expanded="false" aria-controls="{{category.name}}">
-						<i class="fa-solid fa-folder"></i>
-						{{category.name}}
-					</div>
-					<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-					<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
-					<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
-					<div class="row collapse" id="{{category.name}}">
-						{% for subcategory in subCat %}
-							{% if (subcategory.parent.id == category.id) %}
-								<div class="col-6 text-start ps-5">
-									<i class="fa-solid fa-folder"></i>
-									<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" class="text-decoration-none text-dark" role="button">
-										{{subcategory.name}}</a>
-								</div>
-								<div class="col-2">
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-star" style="color:gold;"></i>
-									<i class="fa-regular fa-star" style="color:gold;"></i>
-									<i class="fa-solid fa-paperclip"></i>
-								</div>
-								<div class="col-2 text-end">
-									{% set nbMessages = 0 %}
-									{% for forum in forums %}
-										{% if forum.category.id == subcategory.id %}
-										{% for msg in messages %}
-											{% if msg.forum == forum.id %}
-												{% set nbMessages = msg.NB %}
+		{% if app.user %}
+			<div class="row border border-primary border-2 rounded-top">
+				{% for category in categories %}
+					<div class="row">
+						<div class="col-6 text-light text-start bg-dark bg-gradient" id="Collapse" data-bs-toggle="collapse" data-bs-target="#{{category.name}}" aria-expanded="false" aria-controls="{{category.name}}">
+							<i class="fa-solid fa-folder"></i>
+							{{category.name}}
+						</div>
+						<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
+						<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
+						<div class="col-2 text-light text-center bg-dark bg-gradient">Date</div>
+						<div class="row collapse show" id="{{category.name}}">
+							{% for subcategory in subCat %}
+								{% if (subcategory.parent.id == category.id) %}
+									<div class="col-6 text-start ps-5">
+										<i class="fa-solid fa-folder"></i>
+										<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" class="text-decoration-none text-dark" role="button">
+											{{subcategory.name}}</a>
+									</div>
+									<div class="col-2">
+										<i class="fa-solid fa-star" style="color:gold;"></i>
+										<i class="fa-solid fa-star" style="color:gold;"></i>
+										<i class="fa-solid fa-star" style="color:gold;"></i>
+										<i class="fa-solid fa-star" style="color:gold;"></i>
+										<i class="fa-regular fa-star" style="color:gold;"></i>
+										<i class="fa-solid fa-paperclip"></i>
+									</div>
+									<div class="col-2 text-end">
+										{% set nbMessages = 0 %}
+										{% for forum in forums %}
+											{% if forum.category.id == subcategory.id %}
+											{% for msg in messages %}
+												{% if msg.forum == forum.id %}
+													{% set nbMessages = msg.NB %}
+												{% endif %}
+											{% endfor %}
 											{% endif %}
 										{% endfor %}
-										{% endif %}
-									{% endfor %}
-									{{nbMessages}}
-								</div>
-								<div class="col-2 text-end">
-									{{subcategory.createdAt | date('d/m/Y')}}
-								</div>
-							{% endif %}
-						{% endfor %}
+										{{nbMessages}}
+									</div>
+									<div class="col-2 text-end">
+										{{subcategory.createdAt | date('d/m/Y')}}
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
 					</div>
+				{% endfor %}
+			</div>		
+		{% else %}
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				{#<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>#}
+				<div class="alert-message">
+					<p>Vous devez être connecté pour acceder au discussions</p>
 				</div>
-			{% endfor %}
-		</div>
+			</div>
+		{% endif %}
+		
 	</section>
 
 {% endblock %}

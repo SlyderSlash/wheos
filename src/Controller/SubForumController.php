@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Entity\ForumMessages;
 use App\Entity\Forums;
-use App\Entity\Users;
 use App\Repository\CategoriesRepository;
 use App\Repository\ForumMessagesRepository;
 use App\Repository\ForumsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Forums as EntityForums;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +21,6 @@ class SubForumController extends AbstractController
 {
     #[Route('/{id}', name: 'subforum')]
     public function index(Categories $category,
-    //                        Users $user, 
-    //                        Forums $forum ,
                             Request $request,
                             EntityManagerInterface $objectManager,
                             CategoriesRepository $categoriesRepository,
@@ -72,6 +70,20 @@ class SubForumController extends AbstractController
             'allforums' => $allforums,
             'lastMessages' => $lastMessages,
             'categoryform' =>  $categoryform->createView()
+        ]);
+    }
+
+    #[Route('/{id}/{sujet}', name: 'sujet')]
+    public function showDiscussion(ForumMessagesRepository $forumMessagesRepository, ForumMessages $sujets, int $sujet, Categories $category): Response
+    {
+    
+        $allforums = $forumMessagesRepository->findByForums($sujet);
+
+
+        return $this->render('forum/discussion.html.twig',[
+            'category' => $category,
+            'discussions' => $allforums,
+            'messages' => $sujets
         ]);
     }
 }
