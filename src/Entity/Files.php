@@ -6,6 +6,7 @@ use App\Repository\FilesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: FilesRepository::class)]
 class Files
@@ -33,6 +34,11 @@ class Files
     #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'files')]
     #[ORM\JoinColumn(nullable: false)]
     private $user_id;
+
+    /**
+     * @var File
+     */
+    private $file;
 
     public function __construct()
     {
@@ -126,5 +132,20 @@ class Files
         $this->user_id = $user_id;
 
         return $this;
+    }
+    
+    /**
+     * @return File|null
+     */
+    public function getFile() {
+        return $this->file;
+    }
+
+    /**
+     * @param File $file
+     * @return File|null
+     */
+    public function setFile(File $file) {
+        return $this->file;
     }
 }

@@ -41,6 +41,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Files::class, orphanRemoval: true)]
     private $files;
 
+
+    public function __toString()
+    {
+        return $this->email;
+    }
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
