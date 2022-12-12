@@ -30,11 +30,10 @@ class FileUploadController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $files = $form->get('file')->getData();
-            $file->setPath('/uploads/' . $form->get('name')->getData()); //<- Can't get the extension of the file (eg : .PDF / .HTML)
-
-                // On GENERE un NOUVEAU NOM au FICHIER
-                $fileName = md5(uniqid()) . '.' . $files->guessExtension(); // !IMPORTANT! : SEE if NECESSARY TO SET A NEW NAME after the crypting the files
-
+            
+            // On GENERE un NOUVEAU NOM au FICHIER
+            $fileName = md5(uniqid()) . '.' . $files->guessExtension(); // !IMPORTANT! : SEE if NECESSARY TO SET A NEW NAME after the crypting the files
+            $file->setPath('/uploads/' . $fileName);
                 // On COPIE le FICHIER dans le DOSSIER UPLOADS
                 $files->move(
                     $this->getParameter('files_directory'),
