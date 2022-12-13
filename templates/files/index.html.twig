@@ -20,10 +20,10 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
+                {# <th>Created_at</th>
+                <th>Updated_at</th> #}
                 <th>Path</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,8 +35,8 @@
                 <td>{{ file.updatedAt ? file.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ file.path }}</td>
                 <td>
-                    <a href="{{ path('app_files_show', {'id': file.id}) }}">show</a>
-                    <a href="{{ path('app_files_edit', {'id': file.id}) }}">edit</a>
+                    <a href="{{ path('app_files_edit', {'id': file.id}) }}">modifier</a>
+                    <a href="{{ path('app_files_delete', {'id': file.id}) }}">supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -47,7 +47,7 @@
         </tbody>
     </table>
 
-    <button> <a class="addfile" href="{{ path('app_files_new') }}">Create new</a> </button>
+    <button> <text> Ajouter un nouveau document</text> <a class="addfile" href="{{ path('app_files_new') }}"> <span class="material-symbols-outlined"> add_circle </span> </a> </button>
 
     </div>
 

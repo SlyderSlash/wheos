@@ -1,10 +1,10 @@
 body{
-    background-color: #071330;
+    background-color : #071330;
 }
 
 header{
-    margin-top: 10px;
-    display: block
+    margin-top : 10px;
+    display : block
 }
 
 a,.table{
@@ -12,27 +12,48 @@ a,.table{
 }
 
 .table{
-    width:1115px;
-    margin-left : 200px;
-    background-color : #0C4160;
-    border-radius: 10px;
+    width : 1115px;
+    border : #0047FF 2px solid;
+    margin-left : auto;
+    margin-right : auto;
 }
 
 button{
-    margin-left : 700px;
+    margin-top : 20px;
     font-family: 'Times New Roman', Times, serif;
     background-color : #0C4160;
-    border :rgba(1, 174, 116, 1) 2px solid;
+    border :#0047FF 2px solid;
     border-radius: 5px;
+    margin-left : 1220px;
+    width : 300px;
+    height: 50px;
+}
+
+thead{
+    background-color : #0C4160;
 }
 
 a{
     text-decoration: none;
+    margin-left : 60px;
+}
+
+.material-symbols-outlined{
+    color : #0047FF;
 }
 
 
 h1{
-    color : rgba(1, 174, 116, 1);
+    color : #0047FF;
     font-family: 'Times New Roman', Times, serif;
-    margin-left : 660px;
+    text-align : center;
+}
+
+text{
+    color : white;
+
+}
+
+span{
+    vertical-align : top;
 }
