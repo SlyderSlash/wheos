@@ -7,12 +7,7 @@ header{
     display: block
 }
 
-img{
-    width : 120px;
-    margin-left: 25px;
-}
-
-a,.table,.material-symbols-outlined {
+a,.table{
     color : white;
 }
 
@@ -20,6 +15,7 @@ a,.table,.material-symbols-outlined {
     width:1115px;
     margin-left : 200px;
     background-color : #0C4160;
+    border-radius: 10px;
 }
 
 button{
@@ -27,6 +23,7 @@ button{
     font-family: 'Times New Roman', Times, serif;
     background-color : #0C4160;
     border :rgba(1, 174, 116, 1) 2px solid;
+    border-radius: 5px;
 }
 
 a{
@@ -38,33 +35,4 @@ h1{
     color : rgba(1, 174, 116, 1);
     font-family: 'Times New Roman', Times, serif;
     margin-left : 660px;
-}
-
-.search{
-    margin-left : 805px;
-}
-
-.notifications{
-    margin-left : 199px;
-}
-
-.profile{
-    margin-left : 25px;
-}
-
-
-.left{
-    margin-left : 150px;
-}
-
-.elem{
-    margin-left : 230px;
-}
-
-.contact{
-    margin-left : 735px;
-}
-
-.sousmenu{
-    margin-top : 30px;
 }
