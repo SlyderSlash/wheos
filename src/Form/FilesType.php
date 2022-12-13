@@ -14,10 +14,7 @@ class FilesType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('path')
             ->add('file', FileType::class)
-            ->add('created_at')
-            ->add('updated_at')
             ->add('files_categories_id')
             ->add('user_id')
         ;
