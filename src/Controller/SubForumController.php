@@ -6,9 +6,7 @@ use App\Entity\ForumMessages;
 use App\Entity\Forums;
 use App\Repository\CategoriesRepository;
 use App\Repository\ForumMessagesRepository;
-use App\Repository\ForumsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Proxies\__CG__\App\Entity\Forums as EntityForums;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +22,7 @@ class SubForumController extends AbstractController
                             Request $request,
                             EntityManagerInterface $objectManager,
                             CategoriesRepository $categoriesRepository,
-                            ForumsRepository $forumsRepository, 
+                            int $id, 
                             ForumMessagesRepository $forumMessagesRepository): Response
     {
         
@@ -55,7 +53,7 @@ class SubForumController extends AbstractController
                 $objectManager->persist($contenu);
                 $objectManager->flush();
 
-                return $this->redirectToRoute('forum_subforum',['id' => $category->getId()]);                
+                return $this->redirectToRoute('forum_subforum',['id' => $id]);                
             }
         }
 
@@ -74,16 +72,40 @@ class SubForumController extends AbstractController
     }
 
     #[Route('/{id}/{sujet}', name: 'sujet')]
-    public function showDiscussion(ForumMessagesRepository $forumMessagesRepository, ForumMessages $sujets, int $sujet, Categories $category): Response
+    public function showDiscussion(ForumMessagesRepository $forumMessagesRepository, 
+                                    ForumMessages $sujets, 
+                                    Forums $forum,
+                                    int $sujet, int $id,
+                                    Categories $category,
+                                    Request $request,
+                                    EntityManagerInterface $objectManager): Response
     {
     
         $allforums = $forumMessagesRepository->findByForums($sujet);
 
+        $reponse = new ForumMessages();
+
+        $messageform = $this->createFormBuilder($reponse)
+                            ->add('content')
+                            ->getForm();
+
+        $messageform->handleRequest($request);
+
+        if ($messageform->isSubmitted() && $messageform->isValid() && $request->request->count() > 0){
+                   /*   $reponse->setCreatedAt(new \DateTime())
+                        ->setForum($sujet)
+                        ->setUser($this->getUser());
+
+                $objectManager->persist($reponse); 
+                $objectManager->flush();
+
+                return $this->redirectToRoute('forum_sujet',['id' => $id, 'sujet' => $sujet]);  */              
+        }
+
 
         return $this->render('forum/discussion.html.twig',[
-            'category' => $category,
             'discussions' => $allforums,
-            'messages' => $sujets
+            'form' => $messageform->createView()
         ]);
     }
 }

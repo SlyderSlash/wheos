@@ -1,13 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}WHEOS |{{discussions[0].forum}}{% endblock %}
-{% block stylesheets %}
-    <link href="/wheos/public/css/forum.css" rel="stylesheet">
-{% endblock %}
-{% block javascripts %}
-    <script src="/wheos/public/js/forum.js" defer></script>
-{% endblock %}
-		
+{% block title %}WHEOS |{% endblock %}{# {{discussions[0].forum}}#}
+	
 {% block body %}
 	<section class="container">
 		<div class="row border-bottom my-3 align-items-center">
@@ -21,16 +15,18 @@
 					<a href="{{path('app_forum')}}" class="text-decoration-none">Forum</a>
 				</span>
 				<span class="badge bg-info">
-                    <a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none">{{discussions[0].cName}}</a>
+                    <a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none">{# {{discussions[0].cName}}#}</a>
 				</span>
 				<span class="badge bg-info">
-                    <a href="{{path('forum_sujet',{id:category.id, sujet:discussions[0].forum})}}" 
-                        class="text-decoration-none">{{discussions[0].titre}}</a>
+                    {#<a href="{{path('forum_sujet',{id:category.id, sujet:discussions[0].forum})}}" 
+                        class="text-decoration-none">{{discussions[0].titre}}</a>#}
 				</span>  
 			</div>
 		</div>
-
-		<div class="row align-items-center my-3 ">
+<pre>
+	{{ dump(discussions) }}
+</pre>
+		<div class="row align-items-center my-3">
 			<div class="col-2">
 				<img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
 			</div>
@@ -45,20 +41,16 @@
 					<i class="bi bi-plus-circle-fill"></i>
 				</button>
 			</div>
-			{# formulaire 
+			{# formulaire #}
 			<div class="row border collapse my-2" id="frm">
-				{{ form_start(categoryform) }}
-				{{ form_widget(categoryform) }}
-				<div class="mb-3">
-					<label for="message" class="form-label">Message</label>
-					<textarea class="form-control" id="message" name="message" rows="3" required></textarea>
-				</div>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
 				<div class="col-12">
 					<button class="btn btn-primary" type="submit">Ajouter</button>
 				</div>
-				{{ form_end(categoryform) }}
-			</div>#}
-            {% for message in discussions %}
+				{{ form_end(form) }}
+			</div>
+  {#          {% for message in discussions %}
                 <div class="row p-2 border border-primary border-2 rounded-top my-2">
                     <div class="row bg-black text-light">
                         <div class="col">
@@ -78,14 +70,14 @@
                         </div>
                     </div> 
                 </div>
-            {% endfor %}
+            {% endfor %}#}
 		{% else %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
 				<div class="alert-message">
-					<p>Vous devez être connecté pour acceder au discussions</p>
+					<p>Vous devez être connecté pour acceder aux discussions</p>
 				</div>
 			</div>
-		{% endif %}
+		{% endif %} 
 	</section>
 
 {% endblock %}
