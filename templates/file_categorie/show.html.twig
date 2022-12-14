@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FilesCategories{% endblock %}
+
+{% block body %}
+    <h1>FilesCategories</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ files_category.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ files_category.name }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ files_category.createdAt ? files_category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ files_category.updatedAt ? files_category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_file_categorie_index') }}">back to list</a>
+
+    <a href="{{ path('app_file_categorie_edit', {'id': files_category.id}) }}">edit</a>
+
+    {{ include('file_categorie/_delete_form.html.twig') }}
+{% endblock %}
