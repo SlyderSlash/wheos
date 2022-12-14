@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\CryptingFilesService;
 
 #[Route('/file/upload')]
 class FileUploadController extends AbstractController
@@ -22,7 +23,7 @@ class FileUploadController extends AbstractController
     }
 
     #[Route('/new', name: 'app_file_upload_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FilesRepository $filesRepository): Response
+    public function new(Request $request, FilesRepository $filesRepository, CryptingFilesService $cryptingFilesService): Response
     {
         $file = new Files();
         $form = $this->createForm(FilesType::class, $file);
@@ -33,18 +34,15 @@ class FileUploadController extends AbstractController
             
             // On GENERE un NOUVEAU NOM au FICHIER
             $fileName = md5(uniqid()) . '.' . $files->guessExtension(); // !IMPORTANT! : SEE if NECESSARY TO SET A NEW NAME after the crypting the files
-            dd($fileName);
+            $cryptingFilesService = $files;
             $file->setPath('/uploads/' . $fileName);
-                // On COPIE le FICHIER dans le DOSSIER UPLOADS
-                $files->move(
-                    $this->getParameter('files_directory'),
-                    $fileName
-                );
-
-                // On STOCK le FICHIER dans la BASE DE DONNÉES (son nom)
-                $fileUploaded = new Files();
-                $fileUploaded->setName($fileName);
-
+            // On COPIE le FICHIER dans le DOSSIER UPLOADS
+            $files->move(
+                $this->getParameter('files_directory'),
+                $fileName
+            );
+            dd($files);
+            $cryptingFilesService = $cryptingFilesService->encryptFile($files, $files, $files);
 
             $filesRepository->add($file, true);
             
