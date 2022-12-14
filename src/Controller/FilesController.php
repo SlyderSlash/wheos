@@ -36,7 +36,7 @@ class FilesController extends AbstractController
             // On RECUPERE les FICHIERS TRANSMIS
             $files = $form->get('files')->getData();
             $file->setPath('/uploads/'.$form->get('name')->getData());
-            // $file->setUserId($usersRepository); <- A DECOMMENTER
+            $file->setUserId($usersRepository);
             dd($file);
             
             // On BOUCLE sur les FICHIERS
