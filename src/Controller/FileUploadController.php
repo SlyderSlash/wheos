@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Files;
 use App\Form\FilesType;
 use App\Repository\FilesRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\CryptingFilesService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\CryptingFilesService;
+use Symfony\Component\Mime\Crypto\SMimeEncrypter; // Système de cryptage pour les fichiers ?
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/file/upload')]
 class FileUploadController extends AbstractController
@@ -23,7 +25,9 @@ class FileUploadController extends AbstractController
     }
 
     #[Route('/new', name: 'app_file_upload_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FilesRepository $filesRepository, CryptingFilesService $cryptingFilesService): Response
+    // [BUG] Cannot autowire argument $sMimeEncrypter of "App\Controller\FileUploadController::new()": it references class "Symfony\Component\Mime\Crypto\SMimeEncrypter" but no such service exists.
+    // [BUG] Same for the dependancies injector : CryptingFileService
+    public function new(Request $request, FilesRepository $filesRepository, SMimeEncrypter $sMimeEncrypter): Response 
     {
         $file = new Files();
         $form = $this->createForm(FilesType::class, $file);
