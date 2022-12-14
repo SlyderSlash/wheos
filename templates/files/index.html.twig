@@ -9,27 +9,8 @@
 
 
 {% block body %}
-
-    {# <header>
-    
-    <img src ="{{ asset('images/wheoslogo.png')}} " alt ="logowheos">
-    <span class="material-symbols-outlined search"> search </span> Search
-    <span class="material-symbols-outlined notifications"> notifications </span>
-    <span class="material-symbols-outlined profile"> account_circle </span>
-    
-    </header> #}
     
     <h1>Files index</h1>
-
-    {# <aside>
-    <ul>
-    <li><span class="material-symbols-outlined"> menu </span></li>
-    <li><a href='#home.html'><span class="material-symbols-outlined"> home </span></a></li>
-    <li><a href='#user.html'><span class="material-symbols-outlined"> person</span><a></li>
-    <li><a href='#chat.html'><span class="material-symbols-outlined chat"> chat </span></a></li>
-    <li><a href='#forum.html'><span class="material-symbols-outlined"> forum </span></a></li>
-    </ul>
-    </aside> #}
     
     <div class="conteneur">
 
@@ -39,10 +20,10 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
+                {# <th>Created_at</th>
+                <th>Updated_at</th> #}
                 <th>Path</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -54,8 +35,8 @@
                 <td>{{ file.updatedAt ? file.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ file.path }}</td>
                 <td>
-                    <a href="{{ path('app_files_show', {'id': file.id}) }}">show</a>
-                    <a href="{{ path('app_files_edit', {'id': file.id}) }}">edit</a>
+                    <a href="{{ path('app_files_edit', {'id': file.id}) }}">modifier</a>
+                    <a href="{{ path('app_files_delete', {'id': file.id}) }}">supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -66,21 +47,8 @@
         </tbody>
     </table>
 
-    <button> <a class="addfile" href="{{ path('app_files_new') }}">Create new</a> </button>
+    <button> <text> Ajouter un nouveau document</text> <a class="addfile" href="{{ path('app_files_new') }}"> <span class="material-symbols-outlined"> add_circle </span> </a> </button>
 
     </div>
-{# <footer>
-    <div class = "menu">
-        <a class="left" href = "#accueil.html"> WHEOS </a>
-        <a class="elem" href = "#forums.html"> Forums </a>
-        <a class="elem" href = "#vide.html"> ----------- </a>
-        <a class="elem" href = "#aide.html"> Aide </a>
-    </div>
-
-    <div class = "sousmenu">
-        <a class="left" href = "#quisommesnous.html"> Qui sommes nous ? </a>
-        <a class="contact" href = "#contact.html"> Contact </a>
-    </div>
-</footer> #}
 
 {% endblock %}
