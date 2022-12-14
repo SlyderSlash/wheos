@@ -6,6 +6,16 @@ use DateTimeImmutable;
 
 class JWTService
 {
+    /**
+     * Génération du token
+     *
+     * @param array $header | Algorithm et type de token (ex: alg HS256, typ JWT)
+     * @param array $payload | Data (ex: name, iat)
+     * @param string $secret | clé secrete 
+     * @param integer $validity | Durée de validité du token
+     * @return string
+     */
+
     // on génère le token
 
     public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
@@ -16,10 +26,9 @@ class JWTService
 
             $payload['iat'] = $now->getTimestamp();
             $payload['exp'] = $exp;
-
         }
 
-        
+
         // on encode en base64
         $base64Header = base64_encode(json_encode($header));
         $base64Payload = base64_encode(json_encode($payload));
@@ -97,6 +106,5 @@ class JWTService
         $verifToken = $this->generate($header, $payload, $secret, 0);
 
         return $token === $verifToken;
-
     }
 }

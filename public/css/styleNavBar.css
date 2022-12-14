@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --bg: #171331;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+.navigatetionner {
+    position: fixed;
+    inset: 40px 0 40px 20px;
+    background: #0C4160;
+    width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.navigatetionner.activeer {
+    width: 250px;
+}
+
+.menuTogglerre {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding: 0 23px;
+    border-bottom: 1px solid #0C4160;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menuTogglerre::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: white;
+    transform: translateY(-8px);
+    transition: 0.5s;
+}
+
+.navigatetionner.activeer .menuTogglerre::before {
+    transform: translateY(0) rotate(45deg);
+}
+
+.menuTogglerre::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: white;
+    transform: translateY(8px);
+    box-shadow: 0 -8px 0 white;
+    transition: 0.5s;
+}
+
+.navigatetionner.activeer .menuTogglerre::after {
+    transform: translateY(0) rotate(-45deg);
+    box-shadow: 0 0 0 white;
+}
+
+.navigatetionner .Listers {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.navigatetionner .Listers li {
+    list-style: none !important;
+    position: relative;
+    width: 100%;
+    height: 76px;
+    border-radius: 12px;
+    border: 8px solid transparent;
+    transition: 0.5s;
+}
+
+.navigatetionner .Listers li.activeer {
+    transform: translateX(30px);
+    background: var(--bg);
+}
+
+.navigatetionner .Listers li::before {
+    content: '';
+    position: absolute;
+    top: -28px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-bottom-right-radius: 20px;
+    box-shadow: 6px 5px 0 5px var(--bg);
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: 0.5s;
+}
+
+.navigatetionner .Listers li.activeer::before {
+    right: 22px;
+    transform: scale(1);
+}
+
+.navigatetionner .Listers li::after {
+    content: '';
+    position: absolute;
+    bottom: -28px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 6px -3px 0 3px var(--bg);
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: 0.5s;
+}
+
+.navigatetionner .Listers li.activeer::after {
+    right: 22px;
+    transform: scale(1);
+}
+
+.navigatetionner .Listers li a {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.navigatetionner .Listers li a .iconicicon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: #0C4160;
+    font-size: 1.75em;
+    line-height: 60px;
+    border: 6px solid transparent;
+    transition: 0.5s;
+}
+
+.navigatetionner .Listers li.activeer a .iconicicon {
+    color: #fff;
+    background: var(--clr) !important;
+}
+
+.navigatetionner .Listers li a .iconicicon::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--clr) !important;
+    filter: blur(8px);
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.navigatetionner .Listers li.activeer a .iconicicon::before {
+    opacity: 0.5;
+}
+
+.navigatetionner .Listers li a .iconicicon::after {
+    content: '';
+    position: absolute;
+    border: 8px solid #171331 !important;
+    border-radius: 50%;
+    top: 10px;
+    left: -60px;
+    width: 30px;
+    height: 30px;
+    color: var(--clr) !important;
+    background: var(--clr) !important;
+}
+
+.navigatetionner .Listers li a .text {
+    position: relative;
+    padding: 0 15px;
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s;
+}
+
+.navigatetionner.activeer .Listers li a .text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.navigatetionner .Listers li.activeer a .text {
+    color: #fff;
+}

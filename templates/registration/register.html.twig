@@ -3,10 +3,10 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <section class="container">
+{#<section class="container">
     <div class="row">
         <div class="col">
-            <h1>Inscription</h1>
+            <h1>CREER UN COMPTE GRATUITEMENT</h1>
 
             <fieldset class="mb-3">
                 <legend>Coordonnées</legend>
@@ -21,9 +21,73 @@
                 {{ form_row(registrationForm.RGPDConsent) }}
 
                 <button type="submit" class="btn btn-primary btn-lg my-3">S'inscrire</button>
-                <a href="{{ path('app_login')}}" class="btn btn-secondary">Me connecter</a>
+                <a href="{{ path('app_login')}}">Vous avez déjà un compte ?</a>
             {{ form_end(registrationForm) }}
         </div>
     </div>
+</section>#}
+
+<section>
+  <div class="container py-5 h-50">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        {{ form_start(registrationForm) }}
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 title">CREER UN COMPTE GRATUITEMENT</h3>
+            <form>
+            
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                
+
+                  <div class="form-outline">
+                    {{ form_row(registrationForm.firstname) }}
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    {{ form_row(registrationForm.lastname) }}
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 pb-2">
+
+                  <div class="form-outline">
+                    {{ form_row(registrationForm.email) }}
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 pb-2">
+
+                  <div class="form-outline">
+                    {{ form_row(registrationForm.plainPassword, {
+                    label: ' '
+                }) }}
+                  </div>
+
+                </div>
+              </div>
+              {{ form_row(registrationForm.RGPDConsent) }}
+
+              <div class="mt-2 pt-2">
+                <input class="btn btn-lg btnSub" type="submit" value="S'inscrire" />
+              </div><br>
+              <a class="account" href="{{ path('app_login')}}">Vous avez déjà un compte ?</a>
+            {{ form_end(registrationForm) }}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {% endblock %}

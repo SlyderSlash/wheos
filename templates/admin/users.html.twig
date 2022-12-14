@@ -3,36 +3,51 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Rôles</th>
-            <th>Actions</th>
-        </thead>
-        <tbody>
-            {# On boucle sur les utilisateurs #}
-            {% for user in users %}
-                <tr>
+<section class="intro">
+  <div class="h-100">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="table-responsive bg-white">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Rôles</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {# On boucle sur les utilisateurs #}
+                {% for user in users %}
+                  
+                  <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
-                    <td>
-                        {# On boucle sur les rôles #}
+                    <td>{# On boucle sur les rôles #}
                         {% for role in user.roles %}
-                            {% if role == "ROLE_USER" %}
-                                Utilisateur
+                            {% if role is same as("ROLE_EXT") %}
+                                
+                            {% elseif role == "ROLE_APP" %}
+                                Apprenant
                             {% elseif role == "ROLE_ADMIN" %}
                                 Administrateur
                             {% endif %}
-                        {% endfor %}
-                    </td>
-                    <td><a href="{{ path('modifier_utilisateur', {'id': user.id}) }}">Modifier</a></td>
-                </tr>
-                
-            {% else %}
-                <p>Aucun utilisateur inscrit</p>
-            {% endfor %}
-        </tbody>
-    </table>
+                        {% endfor %}</td>
+                    <td><a href="{{ path('modifier_utilisateur', {'id': user.id}) }}">Modifier</a></td></td>
+                  </tr>
+                    {% else %}
+                        <p>Aucun utilisateur inscrit</p>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

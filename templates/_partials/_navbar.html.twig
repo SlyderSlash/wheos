@@ -1,0 +1,53 @@
+<div class="navigatetionner">
+        <div class="menuTogglerre"></div>
+        <div class="Listers">
+            <li class="lister activeer">
+                <a href="#" style="--clr:#f44336;">
+                    <span class="iconicicon"><ion-icon name="home-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#ffa117;">
+                    <span class="iconicicon"><ion-icon name="person-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">About</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#0fc70f;">
+                    <span class="iconicicon"><ion-icon name="chatbubble-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Messages</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#2196f3;">
+                    <span class="iconicicon"><ion-icon name="camera-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Photos</span>
+                </a>
+            </li>
+            <li class="lister">
+                <a href="#" style="--clr:#b145e9;">
+                    <span class="iconicicon"><ion-icon name="settings-outline" style="color: white;"></ion-icon></span>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+        </div>
+</div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        let menuToggle = document.querySelector('.menuTogglerre');
+        let navigation = document.querySelector('.navigatetionner');
+        menuToggle.onclick = function(){
+            navigation.classList.toggle('activeer')
+        }
+
+        let list = document.querySelectorAll('.lister');
+        function activeLink(){
+            list.forEach((item) =>
+            item.classList.remove('activeer'));
+            this.classList.add('activeer');
+        }
+        list.forEach((item) =>
+        item.addEventListener('click',activeLink));
+    </script>

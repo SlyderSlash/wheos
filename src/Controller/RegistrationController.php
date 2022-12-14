@@ -58,9 +58,9 @@ class RegistrationController extends AbstractController
 
             // on envoie un mail
             $mail->send(
-                'no-reply@wheos.fr',
+                'contact@devweb-chartres.me',
                 $user->getEmail(),
-                'Activation de vôtre compte',
+                'Activation de votre compte',
                 'register',
                 compact('user', 'token')
                 );
@@ -95,7 +95,7 @@ class RegistrationController extends AbstractController
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
                 $em->flush($user);
-                $this->addFlash('success', 'Utilisateur activé');
+                $this->addFlash('success', 'Adresse e-mail validé');
                 return $this->redirectToRoute('app_main');
             }
         }
@@ -137,14 +137,14 @@ class RegistrationController extends AbstractController
 
             // on envoie un mail
             $mail->send(
-                'no-reply@monsite.fr',
+                'contact@devweb-chartres.me',
                 $user->getEmail(),
-                'Activation de vôtre compte',
+                'Activation de votre compte',
                 'register',
                 compact('user', 'token')
                 );
                 
-            $this->addFlash('danger', 'E-mail renvoyer.');
+            $this->addFlash('warning', 'E-mail de validation renvoyer.');
             return $this->redirectToRoute('app_main');
     }
 }
