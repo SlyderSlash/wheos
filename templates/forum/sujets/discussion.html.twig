@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}WHEOS |{% endblock %}{# {{discussions[0].forum}}#}
+{% block title %}WHEOS |{{discussions[0].forum}}{% endblock %}
 	
 {% block body %}
 	<section class="container">
@@ -15,17 +15,15 @@
 					<a href="{{path('app_forum')}}" class="text-decoration-none">Forum</a>
 				</span>
 				<span class="badge bg-info">
-                    <a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none">{# {{discussions[0].cName}}#}</a>
+                    <a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none">{{discussions[0].cName}}</a>
 				</span>
 				<span class="badge bg-info">
-                    {#<a href="{{path('forum_sujet',{id:category.id, sujet:discussions[0].forum})}}" 
-                        class="text-decoration-none">{{discussions[0].titre}}</a>#}
+                    <a href="{{path('forum_sujet',{id:category.id, sujet:discussions[0].forum})}}" 
+                        class="text-decoration-none">{{discussions[0].titre}}</a>
 				</span>  
 			</div>
 		</div>
-<pre>
-	{{ dump(discussions) }}
-</pre>
+
 		<div class="row align-items-center my-3">
 			<div class="col-2">
 				<img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
@@ -50,7 +48,7 @@
 				</div>
 				{{ form_end(form) }}
 			</div>
-  {#          {% for message in discussions %}
+            {% for message in discussions %}
                 <div class="row p-2 border border-primary border-2 rounded-top my-2">
                     <div class="row bg-black text-light">
                         <div class="col">
@@ -70,7 +68,7 @@
                         </div>
                     </div> 
                 </div>
-            {% endfor %}#}
+            {% endfor %}
 		{% else %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
 				<div class="alert-message">

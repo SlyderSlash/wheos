@@ -73,7 +73,7 @@ class ForumMessages
         return $this->forum;
     }
 
-    public function setForum(?Forums $forum): self
+    public function setForum(Forums $forum): self
     {
         $this->forum = $forum;
 
