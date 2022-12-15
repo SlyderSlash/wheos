@@ -2,8 +2,14 @@
 
 {% block title %}Files index{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/filesstyles.css')}} "> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+
+
 {% block body %}
-    <h1>Files index</h1>
+    <h1>Files upload</h1>
 
     <table class="table">
         <thead>
@@ -37,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_file_upload_new') }}">Create new</a>
+     <button> <text> Télécharger un fichier </text> <a href="{{ path('app_file_upload_new') }}"><span class="material-symbols-outlined"> add_circle </span> </a> </button>
 {% endblock %}

@@ -2,10 +2,15 @@
 
 {% block title %}New Files{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/newfilestyles.css')}} "> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+
 {% block body %}
-    <h1>Create new Files</h1>
+    <h1>Create a new files</h1>
 
+    <div class = "container">
     {{ include('file_upload/_form.html.twig') }}
-
-    <a href="{{ path('app_file_upload_index') }}">back to list</a>
+    </div>
 {% endblock %}

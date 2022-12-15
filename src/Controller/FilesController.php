@@ -27,7 +27,7 @@ class FilesController extends AbstractController
     public function new(Request $request, FilesRepository $filesRepository, UsersRepository $usersRepository): Response
     {
         $file = new Files();
-        $user = $usersRepository->find('user_id');
+        $user = $usersRepository->find('user_id_id');
         dd($user);
         $form = $this->createForm(FilesType::class, $file);
         $form->handleRequest($request);
