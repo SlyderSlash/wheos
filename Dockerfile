@@ -1,6 +1,5 @@
 #Deployment
 FROM php:8.1-apache
-RUN 
 LABEL version="1.0"
 LABEL description="Deployment for wheos project from the Bill Gates group ( AFPA Chartres )."
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
