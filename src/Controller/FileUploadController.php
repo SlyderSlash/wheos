@@ -45,8 +45,9 @@ class FileUploadController extends AbstractController
                 $this->getParameter('files_directory'),
                 $fileName
             );
-            dd($files);
-            $cryptingFilesService = $cryptingFilesService->encryptFile($files, $files, $files);
+            // TODO : Encrypt Files, DECOMMENT LINE BELOW
+            // dd($files);
+            // $cryptingFilesService = $cryptingFilesService->encryptFile($files, $files, $files);
 
             $filesRepository->add($file, true);
             

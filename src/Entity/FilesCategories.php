@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FilesCategoriesRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,6 +32,8 @@ class FilesCategories
     public function __construct()
     {
         $this->files = new ArrayCollection();
+        $this->created_at = new DateTimeImmutable();
+        $this->updated_at = new DateTimeImmutable();
     }
 
     public function getId(): ?int
