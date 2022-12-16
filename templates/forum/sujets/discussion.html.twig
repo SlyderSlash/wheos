@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}WHEOS |{{discussions[0].forum}}{% endblock %}
+{# TODO: pour tester l'extension TODO #}
+{% block title %}WHEOS |{{discussions[0].titre}}{% endblock %}
 	
 {% block body %}
 	<section class="container">
@@ -35,8 +35,12 @@
 		</div>
 		{% if app.user %}
 			<div class="p-2 my-2 text-end">
-				<button type="button" class="btn btn-dark text-start" data-bs-toggle="collapse" data-bs-target="#frm">Ajouter une réponse
-					<i class="bi bi-plus-circle-fill"></i>
+				<button type="button" id="addresponse" 
+						class="btn btn-dark text-start" 
+						data-bs-toggle="collapse" 
+						data-bs-target="#frm">
+					Ajouter une réponse
+					<i id="icon" class="bi bi-plus-circle-fill"></i>
 				</button>
 			</div>
 			{# formulaire #}

@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Categories;
 use App\Entity\Forums;
 use App\Entity\ForumMessages;
-//use app\Form\ForumMessagesType;
 use App\Repository\CategoriesRepository;
 use App\Repository\ForumMessagesRepository;
+use App\Repository\ForumsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-//use Proxies\__CG__\App\Entity\Forums as EntityForums;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,19 +21,23 @@ use function PHPUnit\Framework\isEmpty;
 class SubForumController extends AbstractController
 {
 
-
     #[Route('/{id}/{sujet}', name: 'sujet')]
     public function showDiscussion(ForumMessagesRepository $forumMessagesRepository, 
                                    int $sujet, int $id,
                                     Categories $category,
                                     Request $request,
+                                    ForumsRepository $forums,
                                     EntityManagerInterface $objectManager): Response
     {
     
         
         $allforums = $forumMessagesRepository->findByForums($sujet);
         $reponse = new ForumMessages();
-    
+        $forum = $forums->find($sujet);//fait par jeremy
+        if (!$forum) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+
         $messageform = $this->createFormBuilder($reponse)
                             ->add('content')
                             ->getForm();
@@ -42,7 +46,7 @@ class SubForumController extends AbstractController
 
         if ($messageform->isSubmitted() && $messageform->isValid() && $request->request->count() > 0){
                       $reponse->setCreatedAt(new \DateTime())
-                       // ->setForum(????) //je n'arrive pas à recuperer le forum
+                        ->setForum($forum)
                         ->setUser($this->getUser());
 
                 $objectManager->persist($reponse); 
