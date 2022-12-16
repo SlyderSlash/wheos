@@ -27,7 +27,7 @@ class FileUploadController extends AbstractController
     #[Route('/new', name: 'app_file_upload_new', methods: ['GET', 'POST'])]
     // [BUG] Cannot autowire argument $sMimeEncrypter of "App\Controller\FileUploadController::new()": it references class "Symfony\Component\Mime\Crypto\SMimeEncrypter" but no such service exists.
     // [BUG] Same for the dependancies injector : CryptingFileService
-    public function new(Request $request, FilesRepository $filesRepository): Response 
+    public function new(Request $request, FilesRepository $filesRepository, SMimeEncrypter $sMimeEncrypter): Response 
     {
         $file = new Files();
         $form = $this->createForm(FilesType::class, $file);

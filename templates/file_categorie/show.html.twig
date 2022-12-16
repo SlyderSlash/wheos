@@ -26,9 +26,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_files_categories_index') }}">back to list</a>
+    <a href="{{ path('app_file_categorie_index') }}">back to list</a>
 
-    <a href="{{ path('app_files_categories_edit', {'id': files_category.id}) }}">edit</a>
+    <a href="{{ path('app_file_categorie_edit', {'id': files_category.id}) }}">edit</a>
 
-    {{ include('files_categories/_delete_form.html.twig') }}
+    {{ include('file_categorie/_delete_form.html.twig') }}
 {% endblock %}
