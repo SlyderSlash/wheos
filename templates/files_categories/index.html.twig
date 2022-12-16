@@ -23,8 +23,8 @@
                 <td>{{ files_category.createdAt ? files_category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ files_category.updatedAt ? files_category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_file_categorie_show', {'id': files_category.id}) }}">show</a>
-                    <a href="{{ path('app_file_categorie_edit', {'id': files_category.id}) }}">edit</a>
+                    <a href="{{ path('app_files_categories_show', {'id': files_category.id}) }}">show</a>
+                    <a href="{{ path('app_files_categories_edit', {'id': files_category.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_file_categorie_new') }}">Create new</a>
+    <a href="{{ path('app_files_categories_new') }}">Create new</a>
 {% endblock %}
