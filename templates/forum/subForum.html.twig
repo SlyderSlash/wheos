@@ -5,57 +5,59 @@
 
 {% block body %}
 	<section class="container">
-		<div class="row border-bottom my-3  d-flex align-items-center">
+		<div class="row my-3 align-items-center border-forum">
 			<div class="col-1">
-				<a href="{{ path('app_forum') }}" class="text-decoration-none text-dark" role="button">
-					<i class="fa fa-house" style="font-size:48px;color:blue"></i>
+				<a href="{{ path('app_forum') }}" class="text-decoration-none" role="button">
+					<i class="bi bi-chat-right-text-fill" style="font-size:64px;color:white"></i>
 				</a>
 			</div>
-			<div class="col fs-4 text-start text-uppercase">
-				<span class="badge bg-info">
-					<a href="{{path('app_forum')}}" class="text-decoration-none">Forum</a>
+		</div>
+
+		<div class="row my-3 align-items-center">
+			<div class="col fs-6 text-uppercase mx-4">
+				<a href="{{path('app_forum')}}" class="text-decoration-none forum-text-2">Forum</a>
+				<span class="text-success">
+					>
 				</span>
-				<span class="badge bg-info">
-					<a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none">{{category.name}}</a>
-				</span>
+				<a href="{{path('forum_subforum',{id:category.id})}}" class="text-decoration-none forum-text-2">{{category.name}}</a>
 			</div>
 		</div>
 
 		<div class="row d-flex align-items-center my-3 ">
-			<div class="col-2">
+			<div class="col-2 logo-forum">
 				<img src="logo_forum.jpg" alt="logo_forum" width="100" height="100">
 			</div>
-			<div class="col-10 fs-2 text-start">
+			<div class="col-10 text-start txt-forum-2">
 				Forum d'entraide des stagiaires de l'AFPA.<br>
 				Bienvenue sur le forum des stagiaires des centres afpa du france.
 			</div>
 		</div>
 		{% if app.user %}
-			<div class="row border border-primary border-2 rounded-top">
+			<div class="row border-forum p-2">
 				<div class="row">
-					<div class="col-6  text-light text-start bg-dark bg-gradient">
-						<i class="fa-solid fa-folder"></i>
+					<div class="col-6 text-start bg-gradient-forum border-forum-rd-tl my-2 py-2 txt-forum-2">
+						<i class="bi bi-folder-fill forum-icon-folder glif-size-forum"></i>
 						Sous forums
 					</div>
-					<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-					<div class="col-2  text-light text-end  bg-dark bg-gradient">Messages</div>
-					<div class="col-2  text-light text-center  bg-dark bg-gradient">Date</div>
+					<div class="col-2 text-light text-end bg-gradient-forum  my-2 py-2"></div>
+					<div class="col-2 text-light text-end bg-gradient-forum  my-2 py-2 txt-forum-2">Messages</div>
+					<div class="col-2 text-light text-center bg-gradient-forum border-forum-rd-tr my-2 py-2 txt-forum-2">Date</div>
 					{% for subcategory in subCategories %}
 						{% if subcategory.parent.id == category.parent.id %}
-							<div class="col-6 text-start border-bottom">
-								<i class="fa-solid fa-folder"></i>
-								<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" class="text-decoration-none text-dark" role="button">
+							<div class="col-6 text-start ps-6">
+								<i class="bi bi-folder-symlink-fill forum-icon-folder glif-size-forum"></i>
+								<a href="{{ path('forum_subforum',{id:subcategory.id}) }}" class="text-decoration-none txt-forum-2" role="button">
 											{{subcategory.name}}</a>
 							</div>
-							<div class="col-2 border-bottom">
-								<i class="fa-solid fa-star" style="color:gold;"></i>
-								<i class="fa-solid fa-star" style="color:gold;"></i>
-								<i class="fa-solid fa-star" style="color:gold;"></i>
-								<i class="fa-solid fa-star" style="color:gold;"></i>
-								<i class="fa-regular fa-star" style="color:gold;"></i>
-								<i class="fa-solid fa-paperclip"></i>
+							<div class="col-2">
+								<i class="bi bi-star-fill star-forum"></i>
+								<i class="bi bi-star-fill star-forum"></i>
+								<i class="bi bi-star-fill star-forum"></i>
+								<i class="bi bi-star-fill star-forum"></i>
+								<i class="bi bi-star star-forum"></i>
+								<i class="bi bi-paperclip text-light"></i>
 							</div>
-							<div class="col-2 text-end border-bottom">
+							<div class="col-2 text-end txt-forum-2">
 								{% set break = false %}
 								{% for forum in allforums %}
 									{% if forum.category == subcategory.id %}
@@ -66,7 +68,7 @@
 									{% endif %}
 								{% endfor %} 
 							</div>
-							<div class="col-2 text-end border-bottom">
+							<div class="col-2 text-end txt-forum-2">
 								{{subcategory.createdAt | date('d/m/Y')}}
 							</div>
 						{% endif %}
@@ -78,62 +80,67 @@
 				<button type="button" id="addsujet" class="btn btn-dark text-start" 
 						data-bs-toggle="collapse" data-bs-target="#frm">
 					Ajouter un nouveau sujet
-					<i class="bi bi-plus-circle-fill" id="icone"></i>
+					<i class="bi bi-plus-circle-fill" id="icon"></i>
 				</button>
 			</div>
 			{# formulaire #}
-			<div class="row border collapse my-2" id="frm">
+			<div class="row border-forum collapse m-2" id="frm">
 					{{ form_start(categoryform) }}
 					{{ form_widget(categoryform) }}
-						<div class="mb-3">
+						<div class="my-3">
 							<label for="message" class="form-label">Message</label>
 							<textarea class="form-control" id="message" name="message" rows="3" required></textarea>
 						</div>
-						<div class="col-12">
+						<div class="col-12 my-3">
 							<button class="btn btn-primary" type="submit">Ajouter</button>
 						</div>
 					{{ form_end(categoryform) }}
 			</div>
 			
-			<div class="row border border-primary border-2 rounded-top">
+			<div class="row border-forum p-2">
 				<div class="row">
-					<div class="col-6  text-light text-start bg-dark bg-gradient">
+					<div class="col-6 text-start bg-gradient-forum border-forum-rd-tl my-2 py-2 txt-forum-2">
 						Auteur / Sujet</div>
-					<div class="col-2  text-light text-end  bg-dark bg-gradient"></div>
-					<div class="col-2  text-light text-end  bg-dark bg-gradient">Réponses</div>
-					<div class="col-2  text-light text-center  bg-dark bg-gradient">Dernier message</div>
+					{#<div class="col-2 text-end  bg-gradient-forum  my-2 py-2"></div>#}
+					<div class="col-2 text-end  bg-gradient-forum  my-2 py-2">Réponses</div>
+					<div class="col-4 text-center  bg-gradient-forum border-forum-rd-tr my-2 py-2 txt-forum-2">Dernier message</div>
 				</div>
-				<div class="row">
+				{#<div class="row border">#}
 					{% for forum in allforums %}
 						{% if forum.category ==  category.id %}
-							<div class="col-6 text-dark text-start border-bottom">
-								<div class="row">
-									<div class="col-3">
-										<i class="bi bi-person-circle"></i>
-										{{forum.prenom}}
-									</div>
-									<div class="col">
-										<a href="{{ path('forum_sujet',{id:forum.category, sujet:forum.forum}) }}" class="text-decoration-none text-dark" role="button">
-											{{forum.titre}}</a>										
+							<div class="row border-forum m-1">
+								<div class="col-6 text-start">
+									<div class="row">
+										<div class="col-2 txt-forum-3">
+											<i class="bi bi-person-circle glif-size-forum"></i><br>
+											{{forum.prenom}}
+										</div>
+										<div class="col">
+											<a href="{{ path('forum_sujet',{id:forum.category, sujet:forum.forum}) }}" 
+												class="text-decoration-none txt-forum-3" role="button">
+												{{forum.titre}}</a>										
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-2  text-dark text-end border-bottom"></div>
-							<div class="col-2  text-dark text-end border-bottom">{{forum.nb}}</div>
-							<div class="col-2  text-dark text-center border-bottom">
-							{% set break = false %}
-							{% for lsMsg in lastMessages %}
-								{% if lsMsg.forum.id == forum.forum %}
-									{% if not break %}
-										{{lsMsg.content}}
-										{% set break = true %}									
-									{% endif %}
-								{% endif %}
-							{% endfor %}
+								{#<div class="col-2 txt-forum-3 text-end"></div>#}
+								<div class="col-2 txt-forum-3 text-end">
+									{{forum.nb}}
+								</div>
+								<div class="col-2 txt-forum-3 text-center text-truncate">
+									{% set break = false %}
+									{% for lsMsg in lastMessages %}
+										{% if lsMsg.forum.id == forum.forum %}
+											{% if not break %}
+												{{lsMsg.content}}
+												{% set break = true %}									
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+								</div>
 							</div>
 						{% endif %}
 					{% endfor %}
-				</div>
+				{#</div>#}
 			</div>
 			{% else %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
