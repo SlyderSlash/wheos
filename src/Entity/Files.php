@@ -151,4 +151,9 @@ class Files
     public function setFile(File $file) {
         return $this->file;
     }
+
+    public function __toString(): string
+    {
+        return $this->getName();  // or some string field in your Vegetal Entity 
+    }
 }
