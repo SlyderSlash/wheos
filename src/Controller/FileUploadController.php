@@ -66,6 +66,23 @@ class FileUploadController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}', name: 'app_file_download', methods: ['GET'])]
+    public function downloadAction($filename)
+    {
+        $request = $this->get('request');
+        $path = $this->get('kernel')->getRootDir(). "/../web/downloads/";
+        $content = file_get_contents($path.$filename);
+    
+        $response = new Response();
+    
+        //set headers
+        $response->headers->set('Content-Type', 'mime/type');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+    
+        $response->setContent($content);
+        return $response;
+    }
+
     #[Route('/{id}/edit', name: 'app_file_upload_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Files $file, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
     {
