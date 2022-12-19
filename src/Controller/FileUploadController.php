@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Files;
 use App\Form\FilesType;
 use App\Repository\FilesRepository;
-use App\Service\CryptingFilesService;
+use App\Service\CryptingFileService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +25,12 @@ class FileUploadController extends AbstractController
     }
 
     #[Route('/new', name: 'app_file_upload_new', methods: ['GET', 'POST'])]
-    // [BUG] Cannot autowire argument $sMimeEncrypter of "App\Controller\FileUploadController::new()": it references class "Symfony\Component\Mime\Crypto\SMimeEncrypter" but no such service exists.
-    // [BUG] Same for the dependancies injector : CryptingFileService
-    public function new(Request $request, FilesRepository $filesRepository): Response 
+    /* [BUG] Can't crypt the files.
+    ----------------------------------
+        Get the Source of the files correctly, the path to save it.
+        But can't encrypt (Line 46 to 50)
+    ---------------------------------- */
+    public function new(Request $request, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response 
     {
         $file = new Files();
         $form = $this->createForm(FilesType::class, $file);
@@ -35,19 +38,21 @@ class FileUploadController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $files = $form->get('file')->getData();
-            
+
             // On GENERE un NOUVEAU NOM au FICHIER
             $fileName = md5(uniqid()) . '.' . $files->guessExtension();
-            $cryptingFilesService = $files;
             $file->setPath('/uploads/' . $fileName);
+
+            // TODO : Encrypt Files, DECOMMENT LINE BELOW
+            $fileTmpPath = tempnam(sys_get_temp_dir(), 'App\Controller');
+            $key = $this->getParameter('files_secret');
+            // $cryptingFileService = $cryptingFileService->encryptFile($fileTmpPath, $file, $key);
+
             // On COPIE le FICHIER dans le DOSSIER UPLOADS
             $files->move(
                 $this->getParameter('files_directory'),
                 $fileName
             );
-            // TODO : Encrypt Files, DECOMMENT LINE BELOW
-            // dd($files);
-            // $cryptingFilesService = $cryptingFilesService->encryptFile($files, $files, $files);
 
             $filesRepository->add($file, true);
             

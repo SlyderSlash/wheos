@@ -3,14 +3,14 @@
 namespace App\Service;
 
 define('FILE_ENCRYPTION_BLOCKS', 10000);
-class CryptingFilesService
+class CryptingFileService
 {
     /**
      * @description Encrypt the file set in parameter and send it to the dest
      * @param $source   |   Path of the UNENCRYPTED FILE
      * @param $dest     |   Path of the ENCRYPTED FILE to CREATED
      * @param $key      |   Encryption KEY
-     * @returns NULL    |   No return in this method, service runner
+     * @return NULL    |   No return in this method, service runner
      */
     public function encryptFile($source, $dest, $key) // METHOD to ENCRYPT FILES when UPLOADED
     {
