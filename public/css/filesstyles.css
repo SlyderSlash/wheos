@@ -29,6 +29,10 @@ button{
     height: 50px;
 }
 
+.hover:hover{
+    background-color: rgba(0, 255, 128, 0.884);
+}
+
 thead{
     background-color : #0C4160;
 }

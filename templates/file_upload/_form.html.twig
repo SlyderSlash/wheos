@@ -1,4 +1,12 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn2">{{ button_label|default('Save') }}</button>
+    {{ form_label(form.name) }} :
+    {{ form_widget(form.name,{'attr': {'placeholder': 'Nom du fichier'}}) }}<br>
+    {{ form_label(form.file) }} : 
+    {{ form_widget(form.file) }} <br>
+    {{ form_label(form.files_categories_id) }} : <br>
+    {{ form_widget(form.files_categories_id) }} <br>
+    {{ form_label(form.user_id)}} : 
+    {{ form_widget(form.user_id)}} <br> <br>
+    <button class="btn">{{ button_label|default('Update') }}<span class="material-symbols-outlined">browser_updated</span></button>
+    <button class="btn"> <a href="{{ path('app_file_upload_index') }}">Back to the list</a><span class="material-symbols-outlined">arrow_back</span></button>
 {{ form_end(form) }}
