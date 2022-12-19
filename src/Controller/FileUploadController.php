@@ -25,11 +25,7 @@ class FileUploadController extends AbstractController
     }
 
     #[Route('/new', name: 'app_file_upload_new', methods: ['GET', 'POST'])]
-    /* [BUG] Can't crypt the files.
-    ----------------------------------
-        Get the Source of the files correctly, the path to save it.
-        But can't encrypt (Line 46 to 50)
-    ---------------------------------- */
+
     public function new(Request $request, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response 
     {
         $file = new Files();
@@ -41,18 +37,15 @@ class FileUploadController extends AbstractController
 
             // On GENERE un NOUVEAU NOM au FICHIER
             $fileName = md5(uniqid()) . '.' . $files->guessExtension();
-            $file->setPath('/uploads/' . $fileName);
-
-            // TODO : Encrypt Files, DECOMMENT LINE BELOW
-            $fileTmpPath = tempnam(sys_get_temp_dir(), 'App\Controller');
+            $file->setPath('./uploads/' . $fileName);
             $key = $this->getParameter('files_secret');
-            // $cryptingFileService = $cryptingFileService->encryptFile($fileTmpPath, $file, $key);
-
+            
             // On COPIE le FICHIER dans le DOSSIER UPLOADS
             $files->move(
                 $this->getParameter('files_directory'),
                 $fileName
             );
+            $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$fileName, $file->getPath(), $key);
 
             $filesRepository->add($file, true);
             
@@ -74,7 +67,7 @@ class FileUploadController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_file_upload_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Files $file, FilesRepository $filesRepository): Response
+    public function edit(Request $request, Files $file, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
     {
         $form = $this->createForm(FilesType::class, $file);
         $form->handleRequest($request);

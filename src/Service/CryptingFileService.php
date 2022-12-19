@@ -17,21 +17,15 @@ class CryptingFileService
         $cipher = 'aes-256-cbc';
         $ivLenght = openssl_cipher_iv_length($cipher);
         $iv = openssl_random_pseudo_bytes($ivLenght);
-
-        $fpSource = fopen($source, 'rb');
-        $fpDest = fopen($dest, 'w');
-
-        fwrite($fpDest, $iv);
-
-        while (!feof($fpSource)) {
-            $plaintext = fread($fpSource, $ivLenght * FILE_ENCRYPTION_BLOCKS);
-            $ciphertext = openssl_encrypt($plaintext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-            $iv = substr($ciphertext, 0, $ivLenght);
-
-            fwrite($fpDest, $ciphertext);
-        }
-
+        $fpSource = fopen($source, 'r');
+        $plaintext = fread($fpSource,filesize($source));
         fclose($fpSource);
+        unlink($source);
+        $fpDest = fopen($dest, 'w');
+        fwrite($fpDest, $iv);
+        $ciphertext = openssl_encrypt($plaintext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+        $iv = substr($ciphertext, 0, $ivLenght);
+        fwrite($fpDest, $ciphertext);
         fclose($fpDest);
     }
 
