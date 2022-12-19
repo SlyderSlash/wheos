@@ -29,12 +29,14 @@
 			</div>
 		</div>
 		{% if app.user %}
-			<div class="row  border-forum p-2">
+			<div class="row  border-forum p-2" id="category">
 				{% for category in categories %}
 					<div class="row">
-						<div class="col-6 text-start bg-gradient-forum border-forum-rd-tl my-2 py-2" id="Collapse" data-bs-toggle="collapse" data-bs-target="#{{category.name}}" aria-expanded="false" aria-controls="{{category.name}}">
-							<i class="bi bi-folder-fill forum-icon-folder glif-size-forum"></i>
-							{{category.name}}
+						<div class="col-6 text-start bg-gradient-forum border-forum-rd-tl my-2 py-2" id="Collapse" 
+								data-bs-toggle="collapse" data-bs-target="#{{category.name}}" 
+								aria-expanded="false" aria-controls="{{category.name}}">
+								<i class="fa-solid fa-folder-open forum-icon-folder glif-size-forum" onClick="changeIcon(this);"></i>
+									{{category.name}}
 						</div>
 						<div class="col-2  text-end  bg-gradient-forum  my-2 py-2"></div>
 						<div class="col-2  text-end  bg-gradient-forum  my-2 py-2">Messages</div>
@@ -48,11 +50,11 @@
 											{{subcategory.name}}</a>
 									</div>
 									<div class="col-2">
-										<i class="bi bi-star-fill star-forum"></i>
-										<i class="bi bi-star-fill star-forum"></i>
-										<i class="bi bi-star-fill star-forum"></i>
-										<i class="bi bi-star-fill star-forum"></i>
-										<i class="bi bi-star star-forum"></i>
+										<i class="bi bi-star star-forum star" data-value="1"></i>
+										<i class="bi bi-star star-forum star" data-value="2"></i>
+										<i class="bi bi-star star-forum star" data-value="3"></i>
+										<i class="bi bi-star star-forum star" data-value="4"></i>
+										<i class="bi bi-star star-forum star" data-value="5"></i>
 										<i class="bi bi-paperclip text-light"></i>
 									</div>
 									<div class="col-2 text-end txt-forum-2">
