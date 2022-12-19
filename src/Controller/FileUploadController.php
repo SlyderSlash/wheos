@@ -45,7 +45,7 @@ class FileUploadController extends AbstractController
                 $this->getParameter('files_directory'),
                 $fileName
             );
-            $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$fileName, $file->getPath(), $key);
+            // $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$fileName, $file->getPath(), $key);
 
             $filesRepository->add($file, true);
             
@@ -88,6 +88,7 @@ class FileUploadController extends AbstractController
     public function delete(Request $request, Files $file, FilesRepository $filesRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $file->getId(), $request->request->get('_token'))) {
+            unlink($file->getPath());
             $filesRepository->remove($file, true);
         }
 
