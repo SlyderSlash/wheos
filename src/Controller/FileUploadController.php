@@ -45,7 +45,7 @@ class FileUploadController extends AbstractController
                 $this->getParameter('files_directory'),
                 $fileName
             );
-            // $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$fileName, $file->getPath(), $key);
+            $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$fileName, $file->getPath(), $key);
 
             $filesRepository->add($file, true);
             
@@ -73,7 +73,20 @@ class FileUploadController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $files = $form->get('file')->getData();
+            $oldFile = $file->getPath();
+            $newFile = md5(uniqid()) . '.' . $files->guessExtension();
+            $file->setPath('./uploads/' . $newFile);
+            $key = $this->getParameter('files_secret');
+            // On COPIE le FICHIER dans le DOSSIER UPLOADS
+            $files->move(
+                $this->getParameter('files_directory'),
+                $newFile
+            );
+            $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$newFile, $file->getPath(), $key);
+            
             $filesRepository->add($file, true);
+            unlink($oldFile);
 
             return $this->redirectToRoute('app_file_upload_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -88,8 +101,8 @@ class FileUploadController extends AbstractController
     public function delete(Request $request, Files $file, FilesRepository $filesRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $file->getId(), $request->request->get('_token'))) {
-            unlink($file->getPath());
             $filesRepository->remove($file, true);
+            unlink($file->getPath());
         }
 
         return $this->redirectToRoute('app_file_upload_index', [], Response::HTTP_SEE_OTHER);
