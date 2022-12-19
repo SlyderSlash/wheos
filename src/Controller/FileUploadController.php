@@ -37,7 +37,7 @@ class FileUploadController extends AbstractController
             $files = $form->get('file')->getData();
             
             // On GENERE un NOUVEAU NOM au FICHIER
-            $fileName = md5(uniqid()) . '.' . $files->guessExtension(); // !IMPORTANT! : SEE if NECESSARY TO SET A NEW NAME after the crypting the files
+            $fileName = md5(uniqid()) . '.' . $files->guessExtension();
             $cryptingFilesService = $files;
             $file->setPath('/uploads/' . $fileName);
             // On COPIE le FICHIER dans le DOSSIER UPLOADS
