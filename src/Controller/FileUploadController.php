@@ -37,7 +37,7 @@ class FileUploadController extends AbstractController
 
             // On GENERE un NOUVEAU NOM au FICHIER
             $fileName = md5(uniqid()) . '.' . $files->guessExtension();
-            $file->setPath('./uploads/' . $fileName);
+            $file->setPath('uploads/' . $fileName);
             $key = $this->getParameter('files_secret');
             
             // On COPIE le FICHIER dans le DOSSIER UPLOADS
@@ -45,7 +45,7 @@ class FileUploadController extends AbstractController
                 $this->getParameter('files_directory'),
                 $fileName
             );
-            $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$fileName, $file->getPath(), $key);
+            $cryptingFileService = $cryptingFileService->encryptFile('uploads/'.$fileName, $file->getPath(), $key);
 
             $filesRepository->add($file, true);
             
@@ -66,23 +66,25 @@ class FileUploadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_file_download', methods: ['GET'])]
-    public function downloadAction($filename)
-    {
-        $request = $this->get('request');
-        $path = $this->get('kernel')->getRootDir(). "/../web/downloads/";
-        $content = file_get_contents($path.$filename);
-        dd($content);
-        $response = new Response();
+    // // [BUG] can't get a way to download file from the TWIG page (templates/file_upload/show.html.twig)
+    // #[Route('/public/uploads/', name: 'app_file_download', methods: ['GET'])]
+    // public function downloadAction(Request $request, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
+    // {
+    //     dd($request);
+    //     $request = $this->get('request');
+    //     $path = $this->get('kernel')->getRootDir(). "/../web/downloads/";
+    //     $content = file_get_contents($path.$filename);
+
+    //     $response = new Response();
     
-        //set headers
-        $response->header->set('./uploads/a90817b71bbbb926a3d9135d9c3b65a1.jpg');
-        // $response->headers->set('Content-Type', 'mime/type');
-        // $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+    //     //set headers
+    //     $response->header->set('uploads/459e8b3ea40fcc27d5c5c32a627e8648.txt');
+    //     // $response->headers->set('Content-Type', 'mime/type');
+    //     // $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
     
-        $response->setContent($content);
-        return $response;
-    }
+    //     $response->setContent($content);
+    //     return $response;
+    // }
 
     #[Route('/{id}/edit', name: 'app_file_upload_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Files $file, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
@@ -94,14 +96,14 @@ class FileUploadController extends AbstractController
             $files = $form->get('file')->getData();
             $oldFile = $file->getPath();
             $newFile = md5(uniqid()) . '.' . $files->guessExtension();
-            $file->setPath('./uploads/' . $newFile);
+            $file->setPath('uploads/' . $newFile);
             $key = $this->getParameter('files_secret');
             // On COPIE le FICHIER dans le DOSSIER UPLOADS
             $files->move(
                 $this->getParameter('files_directory'),
                 $newFile
             );
-            $cryptingFileService = $cryptingFileService->encryptFile('./uploads/'.$newFile, $file->getPath(), $key);
+            $cryptingFileService = $cryptingFileService->encryptFile('uploads/'.$newFile, $file->getPath(), $key);
             
             $filesRepository->add($file, true);
             unlink($oldFile);
