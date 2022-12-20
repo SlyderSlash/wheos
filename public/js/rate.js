@@ -5,8 +5,8 @@ window.onload = () =>{
 
     console.log(stars);
 
-    for (const star in stars) {
-        star.style.color = 'gold'; 
+    for (star in stars) {
+        star.style.color = 'red'; 
     }
 
     let prec = this.previousElementSibling;
@@ -16,7 +16,7 @@ window.onload = () =>{
         prec = prec.previousElementSibling;
     }
 
-    for (const star in stars) {
+    for (star in stars) {
          star.addEventListener('mouseover', function(){
             this.style.color = 'red';
          })   

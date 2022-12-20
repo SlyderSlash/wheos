@@ -105,7 +105,7 @@ class SubForumController extends AbstractController
 
 
         $subCategories = $categoriesRepository->findBySubCategories();
-        $lastMessages = $forumMessagesRepository->findByLastMessages($category->getId());
+        $lastMessages = $forumMessagesRepository->findByLastMessages($id);
         $allforums = $forumMessagesRepository->findAllForumMessages();
 
         return $this->render('forum/subForum.html.twig',[

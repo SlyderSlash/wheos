@@ -101,13 +101,28 @@ class ForumMessagesRepository extends ServiceEntityRepository
 
     public function findByLastMessages($forumId): array
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.forum = :val')
-            ->setParameter('val', $forumId)
-            ->orderBy('f.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult()
-       ;
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT 
+                fm.user_id as user, 
+                fm.forum_id as forum, 
+                f.title as titre,
+                f.category_id as category,
+                c.name as cName,
+                fm.content as message, 
+                fm.created_at as dt 
+            FROM forum_messages fm
+            LEFT JOIN forums f ON fm.forum_id = f.id
+            LEFT JOIN categories c ON f.category_id = c.id
+            WHERE f.category_id= :val
+            ORDER BY fm.created_at DESC
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['val' => $forumId]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
     }
 
 //    public function findOneBySomeField($value): ?ForumMessages
