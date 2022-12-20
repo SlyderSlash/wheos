@@ -72,12 +72,13 @@ class FileUploadController extends AbstractController
         $request = $this->get('request');
         $path = $this->get('kernel')->getRootDir(). "/../web/downloads/";
         $content = file_get_contents($path.$filename);
-    
+        dd($content);
         $response = new Response();
     
         //set headers
-        $response->headers->set('Content-Type', 'mime/type');
-        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+        $response->header->set('./uploads/a90817b71bbbb926a3d9135d9c3b65a1.jpg');
+        // $response->headers->set('Content-Type', 'mime/type');
+        // $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
     
         $response->setContent($content);
         return $response;
