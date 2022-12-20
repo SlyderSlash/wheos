@@ -2,6 +2,11 @@
 
 {% block title %}Files{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/filesshowstyles.css')}} "> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+
 {% block body %}
     <h1>Files</h1>
 
@@ -30,9 +35,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_file_upload_index') }}">back to list</a>
+     <button class = "btn2"> <a href="{{ path('app_file_upload_index') }}">Back to list</a> </button>
 
-    <a href="{{ path('app_file_upload_edit', {'id': file.id}) }}">edit</a>
+     <button class = "btn2" > <a href="{{ path('app_file_upload_edit', {'id': file.id}) }}">Edit</a></button>
 
     {{ include('file_upload/_delete_form.html.twig') }}
 {% endblock %}
