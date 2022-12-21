@@ -40,6 +40,7 @@ class CryptingFileService
         $ivLenght = openssl_cipher_iv_length($cipher);
         $iv = openssl_random_pseudo_bytes($ivLenght);
         $fpSource = fopen($source, 'r');
+        // dd($fpSource, filesize($source));
         $plaintext = fread($fpSource,filesize($source));
         $fpDest = fopen($dest, 'w');
         fwrite($fpDest, $iv);
@@ -48,8 +49,8 @@ class CryptingFileService
         //unlink($source);
         $plaintext = openssl_decrypt($plaintext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
         $iv = substr($plaintext, 0, $ivLenght);
-        dd($fpDest);
         fwrite($fpDest, $plaintext);
+        dd($plaintext);
         
 
         fclose($fpSource);
