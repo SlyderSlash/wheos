@@ -30,24 +30,25 @@ class CryptingFileService
     }
 
     /**
-     * @param $source   |   Path of the UNENCRYPTED FILE
-     * @param $dest     |   Path of the ENCRYPTED FILE to CREATED
+     * @param $source   |   Path of the ENCRYPTED FILE
+     * @param $dest     |   Path of the UNENCRYPTED FILE to CREATED
      * @param $key      |   Encryption KEY
      */
     public function decryptFile($source, $dest, $key) // METHOD to DECRYPT FILES when UPLOADED
     {
         $cipher = 'aes-256-cbc';
         $ivLenght = openssl_cipher_iv_length($cipher);
-
+        $iv = openssl_random_pseudo_bytes($ivLenght);
         $fpSource = fopen($source, 'r');
+        $plaintext = fread($fpSource,filesize($source));
         $fpDest = fopen($dest, 'w');
-
-        $iv = fread($fpSource, $ivLenght);
-
+        fwrite($fpDest, $iv);
+        
         $ciphertext = fread($fpSource, $ivLenght);
-        $plaintext = openssl_decrypt($ciphertext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+        //unlink($source);
+        $plaintext = openssl_decrypt($plaintext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
         $iv = substr($plaintext, 0, $ivLenght);
-
+        dd($fpDest);
         fwrite($fpDest, $plaintext);
         
 

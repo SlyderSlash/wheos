@@ -17,16 +17,21 @@ class FileDownloadController extends AbstractController
     public function downloadAction(Request $request, Files $files, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
     {
         // dd($request, $filesRepository, $files, $file);
+        $name = $files->getName();
         $path = $files->getPath();
         $content = file_get_contents($path);
+        $contentPath = 'download/'.$name;
+        $key = $this->getParameter('files_secret');
 
         $response = new Response();
         //set headers
         $response->headers->set('Content-Type', 'mime/type');
         // dd($response);
          $response->headers->set('Content-Disposition', 'attachment;filename="'.$path);
-    
+        $content = $cryptingFileService->decryptFile($path, $contentPath,$key);
+        dd($content);
         $response->setContent($content);
+        //dd($response);
         return $response;
     }
 }
