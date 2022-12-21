@@ -10,7 +10,7 @@ body {
 .bg-gradient-forum{
     background-color:  rgb(21, 31, 53);
     color: white;
-    height: 65px;
+    height: 50px;
     vertical-align: text-bottom;
 }
 .forum-icon-folder{
@@ -63,8 +63,15 @@ body {
     margin-left: 50px;
     margin-right: 10px;
 }
+
 .star-forum{
     color: gold;
+}
+.stars {
+    display: flex;
+}
+.stars i {
+    padding: 2px;
 }
 .glif-size-forum {
     font-size:32px;
