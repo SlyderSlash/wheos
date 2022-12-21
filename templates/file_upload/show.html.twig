@@ -30,7 +30,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_file_download', {'path': file.path}) }}">bonjour</a> <!-- Passage controller, mais chemin incorrect (/file/upload/public/uploads) ou alors avec nouveau controller : (https://127.0.0.1:8000/?path=uploads/459e8b3ea40fcc27d5c5c32a627e8648.txt)-->
+    <a href="{{ path('app_file_download', {'id': file.id}) }}">Télécharger fichier (TEST)</a> <!-- Passage controller, mais chemin incorrect (/file/upload/public/uploads) ou alors avec nouveau controller : (https://127.0.0.1:8000/?path=uploads/459e8b3ea40fcc27d5c5c32a627e8648.txt)-->
     <a href="{{ '/'~ file.path }}">Télécharger</a> <!-- Passage hors controller mais chemin correct -->
 
     <a href="{{ path('app_file_upload_index') }}">back to list</a>
