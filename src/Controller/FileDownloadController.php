@@ -16,18 +16,15 @@ class FileDownloadController extends AbstractController
     #[Route('/{id}', name: 'app_file_download', methods: ['GET'])]
     public function downloadAction(Request $request, Files $files, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
     {
-        $file = $files->getPath();
-        dd($request, $filesRepository, $files, $file);
-        $request = $this->get('request');
-        $path = $this->get('kernel')->getRootDir(). "/../web/downloads/";
-        $content = file_get_contents($path.$filename);
+        // dd($request, $filesRepository, $files, $file);
+        $path = $files->getPath();
+        $content = file_get_contents($path);
 
         $response = new Response();
-    
         //set headers
-        $response->header->set('uploads/459e8b3ea40fcc27d5c5c32a627e8648.txt');
-        // $response->headers->set('Content-Type', 'mime/type');
-        // $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+        $response->headers->set('Content-Type', 'mime/type');
+        // dd($response);
+         $response->headers->set('Content-Disposition', 'attachment;filename="'.$path);
     
         $response->setContent($content);
         return $response;
