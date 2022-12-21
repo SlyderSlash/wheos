@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des categories{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row text-light p-3 m-5 border-bottom">
+            <h1>Categories</h1>
+        </div>
+        <div class="row">
+            <table class="table table-hover text-light">
+                <thead>
+                    <th>ID</th>
+                    <th>Parent</th>
+                    <th>Titre</th>
+                    <th>Date de création</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    {# On boucle sur les categories #}
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.id }}</td>
+                            <td>
+                            {% if category.Parent is not null %}
+                                {#{ category.Parent }#}                           
+                                {% endif %}
+                            </td>
+                            <td>{{category.name}}</td>
+                            <td>{{category.createdAt | date('d/m/Y') }}</td>
+                            <td><a href="{{ path('addCategory') }}">Ajouter</a><a href="{{ path('editCategory', {'id': category.id}) }}">Modifier</a></td>
+                        </tr>
+                    {% else %}
+                        <p>Pas de categorie</p>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
