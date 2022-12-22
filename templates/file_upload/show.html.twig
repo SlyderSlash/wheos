@@ -2,6 +2,13 @@
 
 {% block title %}Files{% endblock %}
 
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/filesshowstyles.css')}} "> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+
+
 {% block body %}
     <h1>Files</h1>
 
@@ -16,10 +23,6 @@
                 <td>{{ file.name }}</td>
             </tr>
             <tr>
-                <th>Path</th>
-                <td>{{ file.path }}</td>
-            </tr>
-            <tr>
                 <th>Created_at</th>
                 <td>{{ file.createdAt ? file.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
@@ -27,14 +30,15 @@
                 <th>Updated_at</th>
                 <td>{{ file.updatedAt ? file.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ file.path }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_file_download', {'id': file.id}) }}">Télécharger fichier</a>
-
-    <a href="{{ path('app_file_upload_index') }}">back to list</a>
-
-    <a href="{{ path('app_file_upload_edit', {'id': file.id}) }}">edit</a>
-
+    
+    <button class = "btn2"> <a href="{{ path('app_file_upload_index') }}">Back to list<span class="material-symbols-outlined">arrow_back</span></a> </button>
+    <button class = "btn3"> <a href="{{ path('app_file_upload_edit', {'id': file.id}) }}">Edit<span class="material-symbols-outlined">edit </span></a></button>
     {{ include('file_upload/_delete_form.html.twig') }}
 {% endblock %}

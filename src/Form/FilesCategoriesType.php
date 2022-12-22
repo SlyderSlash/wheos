@@ -13,8 +13,6 @@ class FilesCategoriesType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('created_at')
-            ->add('updated_at')
             ->add('files')
         ;
     }
