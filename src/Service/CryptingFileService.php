@@ -43,14 +43,13 @@ class CryptingFileService
         // dd($fpSource, filesize($source));
         $plaintext = fread($fpSource,filesize($source));
         $fpDest = fopen($dest, 'w');
-        fwrite($fpDest, $iv);
+        //fwrite($fpDest, $iv);
         
         $ciphertext = fread($fpSource, $ivLenght);
         //unlink($source);
         $plaintext = openssl_decrypt($plaintext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-        $iv = substr($plaintext, 0, $ivLenght);
+        $plaintext = substr($plaintext, $ivLenght);
         fwrite($fpDest, $plaintext);
-        dd($plaintext);
         
 
         fclose($fpSource);

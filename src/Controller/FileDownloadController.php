@@ -20,17 +20,17 @@ class FileDownloadController extends AbstractController
         $name = $files->getName();
         $path = $files->getPath();
         $content = file_get_contents($path);
-        $contentPath = 'download/'.$name;
+        $downloadName = explode("/", $path);
+        // dd($name, $path, $content, $downloadName[1]);
+        $contentPath = 'download/'.$downloadName[1];
         $key = $this->getParameter('files_secret');
-
+        $cryptingFileService->decryptFile($path, $contentPath,$key);
         $response = new Response();
         //set headers
         $response->headers->set('Content-Type', 'mime/type');
         // dd($response);
-         $response->headers->set('Content-Disposition', 'attachment;filename="'.$path);
-        $content = $cryptingFileService->decryptFile($path, $contentPath,$key);
-        dd($content);
-        $response->setContent($content);
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$downloadName[1]);
+        $response->setContent(fread($contentPath, "r"));
         //dd($response);
         return $response;
     }
