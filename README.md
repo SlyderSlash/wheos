@@ -1,4 +1,4 @@
 # wheos
 Final teams project for the BillGates Group from the AFPA
 
-# Team Otarie
+# Team Otarie vs Team Luigi
