@@ -1,0 +1,63 @@
+body{
+    background-color : #071330;
+}
+
+header{
+    margin-top : 10px;
+    display : block
+}
+
+a,.table{
+    color : white;
+}
+
+.table{
+    width : 1115px;
+    border : #0047FF 2px solid;
+    margin-left : auto;
+    margin-right : auto;
+}
+
+button{
+    margin-top : 20px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color : #0C4160;
+    border :#0047FF 2px solid;
+    border-radius: 5px;
+    margin-left : 1220px;
+    width : 300px;
+    height: 50px;
+}
+
+.hover:hover{
+    background-color: rgba(0, 255, 128, 0.884);
+}
+
+thead{
+    background-color : #0C4160;
+}
+
+a{
+    text-decoration: none;
+    margin-left : 60px;
+}
+
+.material-symbols-outlined{
+    color : #0047FF;
+}
+
+
+h1{
+    color : #0047FF;
+    font-family: 'Times New Roman', Times, serif;
+    text-align : center;
+}
+
+text{
+    color : white;
+
+}
+
+span{
+    vertical-align : top;
+}

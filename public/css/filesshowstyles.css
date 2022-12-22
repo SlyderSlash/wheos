@@ -1,0 +1,77 @@
+body{
+    background-color : #071330;
+}
+
+h1{
+    color : #0047FF;
+    font-family: 'Times New Roman', Times, serif;
+    text-align : center;
+}
+
+thead{
+    background-color : #0C4160;
+}
+
+.table{
+    width : 1115px;
+    border : #0047FF 2px solid;
+    margin-left : auto;
+    margin-right : auto;
+}
+
+th, tr{
+    color : white;
+}
+
+button{
+    background-color: #071330;
+    width : 200px;
+}
+
+.btn{
+    background-color: #071330;
+    color : white;
+    font-family: 'Times New Roman', Times, serif;
+    border :#0047FF 2px solid;
+    margin-left : 875px;
+    margin-top: 30px;
+}
+
+a{
+   text-decoration: none;
+   font-family: 'Times New Roman', Times, serif;
+   color : white;
+}
+
+.btn2, .btn3{
+    border :#0047FF 2px solid;
+    height : 40px;
+    border-radius : 5px;
+}
+
+.btn2{
+    margin-left : 400px;
+}
+
+.btn3{
+    margin-left : 715px;
+}
+
+.btn,.btn2,.btn3{
+    background-color : #0C4160;
+}
+
+.btn:hover, .btn2:hover, .btn3:hover{
+    background-color: rgba(0, 255, 128, 0.884);
+    border :#0047FF 2px solid;
+}
+
+a:hover{
+    color : black;
+}
+
+span{
+    vertical-align : top;
+    margin-left : 30px;
+    color : #0047FF
+}
