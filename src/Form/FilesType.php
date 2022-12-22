@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class FilesType extends AbstractType
 {
@@ -14,7 +15,14 @@ class FilesType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('file', FileType::class)
+            ->add('file', FileType::class, [
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '400m',
+                            'maxSizeMessage' => 'Fichier trop volumineux ! Le poids limite est de 400 Mo !',
+                    ])
+                ],
+            ])
             ->add('files_categories_id')
             ->add('user_id')
         ;
