@@ -35,8 +35,8 @@
                 <td>{{ file.updatedAt ? file.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ file.path }}</td>
                 <td>
-                    <a href="{{ path('app_files_edit', {'id': file.id}) }}">modifier</a>
-                    <a href="{{ path('app_files_delete', {'id': file.id}) }}">supprimer</a>
+                    <a href="{{ path('app_files_edit', {'id': file.id}) }}">edit</a>
+                    <a href="{{ path('app_files_delete', {'id': file.id}) }}">delete</a>
                 </td>
             </tr>
         {% else %}
