@@ -18,19 +18,23 @@ class FileDownloadController extends AbstractController
     public function downloadAction(Request $request, Files $files, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
     {
         $name = $files->getName();
-        $path = $files->getPath();
-        $content = file_get_contents($path);
-        $downloadName = explode("/", $path);
-        $contentPath = 'download/'.$downloadName[1];
+        $storedPath = $files->getPath();
+        $content = file_get_contents($storedPath);
+        $label = explode("/", $storedPath);
+        $tmpDownload = 'download/'.$label[1];
         $key = $this->getParameter('files_secret');
-        $cryptingFileService->decryptFile($path, $contentPath,$key);
+        $cryptingFileService->decryptFile($storedPath, $tmpDownload,$key);
+        // dd($name, $storedPath, $content, $label, $tmpDownload);
         $response = new Response();
         //set headers
         $response->headers->set('Content-Type', 'mime/type');
-        $response->headers->set('Content-Disposition', 'attachment;filename="'.$downloadName[1]);
-        $openedFile = fopen($contentPath, "r"); // <- Renommer la variable (Lit le fichier)
-        $response->setContent(fread($openedFile, filesize($contentPath)));
-        unlink($contentPath);
+        $name = str_replace(" ", "_", $name);
+        $downloadName = $name.".";
+        $extension = explode(".", $storedPath);
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$downloadName. $extension[1]);
+        $openedFile = fopen($tmpDownload, "r");
+        $response->setContent(fread($openedFile, filesize($tmpDownload)));
+        unlink($tmpDownload);
         return $response;
     }
 }
