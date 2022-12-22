@@ -7,6 +7,7 @@
 
     {{ include('file_upload/_form.html.twig', {'button_label': 'Update'}) }}
 
+    <a href="{{ path('app_file_download', {'id':file.id}) }}">Télécharger fichier</a>
     <a href="{{ path('app_file_upload_index') }}">back to list</a>
 
     {{ include('file_upload/_delete_form.html.twig') }}

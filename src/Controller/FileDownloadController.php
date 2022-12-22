@@ -13,9 +13,8 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class FileDownloadController extends AbstractController
 {
-    // [BUG] can't get a way to download file from the TWIG page (templates/file_upload/show.html.twig)
     #[Route('/{id}', name: 'app_file_download', methods: ['GET'])]
-    public function downloadAction(Request $request, Files $files, FilesRepository $filesRepository, CryptingFileService $cryptingFileService): Response
+    public function downloadAction(Files $files, CryptingFileService $cryptingFileService): Response
     {
         $name = $files->getName();
         $storedPath = $files->getPath();
