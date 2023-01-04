@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des categories{% endblock %}
+{% block title %}Gestion des categories{% endblock %}
 
 {% block body %}
     <section class="container">
         <div class="row text-light p-3 m-5 border-bottom">
-            <h1>Categories</h1>
+            <div class="col-8"><h1>Categories</h1></div>
+            <div class="col"><a href="{{ path('categories_add') }}" class="btn btn-secondary">Ajouter une catégorie <i class="bi bi-plus-circle-fill"></i></a></div>
         </div>
         <div class="row">
             <table class="table table-hover text-light">
@@ -28,7 +29,7 @@
                             </td>
                             <td>{{category.name}}</td>
                             <td>{{category.createdAt | date('d/m/Y') }}</td>
-                            <td><a href="{{ path('addCategory') }}">Ajouter</a><a href="{{ path('editCategory', {'id': category.id}) }}">Modifier</a></td>
+                            <td><a href="{{ path('categories_edit', {'id': category.id}) }}">Modifier</a></td>
                         </tr>
                     {% else %}
                         <p>Pas de categorie</p>
