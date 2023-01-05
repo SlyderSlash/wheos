@@ -7,6 +7,7 @@
         <div class="row text-light p-3 m-5 border-bottom">
             <div class="col-8"><h1>Categories</h1></div>
             <div class="col"><a href="{{ path('categories_add') }}" class="btn btn-secondary">Ajouter une catégorie <i class="bi bi-plus-circle-fill"></i></a></div>
+            <div class="col"><a href="{{ path('categories_addsub') }}" class="btn btn-secondary">Ajouter une sous catégorie <i class="bi bi-plus-circle-fill"></i></a></div>
         </div>
         <div class="row">
             <table class="table table-hover text-light">
@@ -24,8 +25,10 @@
                             <td>{{ category.id }}</td>
                             <td>
                             {% if category.Parent is not null %}
-                                {#{ category.Parent }#}                           
-                                {% endif %}
+                                {{ category.Parent }}    
+                            {% else %}
+                                {{'NULL'}}                       
+                            {% endif %}
                             </td>
                             <td>{{category.name}}</td>
                             <td>{{category.createdAt | date('d/m/Y') }}</td>

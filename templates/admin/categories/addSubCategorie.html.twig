@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une sous categorie
+{% endblock %}
+{% block body %}
+	<section class="container">
+		<div class="row border-bottom text-light">
+			<p>Ajouter une sous gatégorie</p>
+		</div>
+		<div class="row"></div>
+		<div class="row text-light">
+			{{form_start(categoryform)}}
+            {{ form_widget(categoryform) }}
+				<div class="col-12 my-3">
+					<button class="btn btn-primary" type="submit">Ajouter</button>
+				</div>
+            {{form_end(categoryform)}}
+		</section>
+	{% endblock %}
